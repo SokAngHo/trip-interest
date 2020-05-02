@@ -86,30 +86,96 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// function autocompleteAddress(input) {
-//   if (!input) return;
-//   const dropdown = new google.maps.places.Autocomplete(input);
-// }
-// autocompleteAddress($.$('#fromAddress'));
-function autocomplete(input) {
-  if (!input) return;
-  var dropdown = new google.maps.places.Autocomplete(input);
-}
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modules_map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 
+Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["initMap"])();
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initMap", function() { return initMap; });
 function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
+  // Initilise map to Melbourne location
+  var map = new google.maps.Map(document.getElementById('map'), {
     center: {
-      lat: -34.397,
-      lng: 150.644
+      lat: -37.8136,
+      lng: 144.9631
     },
     zoom: 8
   });
+  new AutocompleteDirectionsHandler(map);
 }
 
-initMap();
-autocomplete(document.getElementById('fromAddress'));
+function AutocompleteDirectionsHandler(map) {
+  this.map = map;
+  this.originPlaceId = null;
+  this.destinationPlaceId = null;
+  this.travelMode = 'DRIVING';
+  this.directionsService = new google.maps.DirectionsService();
+  this.directionsRenderer = new google.maps.DirectionsRenderer();
+  this.directionsRenderer.setMap(map);
+  var originInput = document.getElementById('origin-input');
+  var destinationInput = document.getElementById('destination-input'); // let modeSelector = document.getElementById()
+  // Setup origin and destination auto complete inputs
+
+  var originAutocomplete = new google.maps.places.Autocomplete(originInput);
+  originAutocomplete.setFields(['place_id']);
+  var destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
+  destinationAutocomplete.setFields(['place_id']);
+  this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+  this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+}
+
+AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function (autocomplete, mode) {
+  var me = this;
+  autocomplete.bindTo('bounds', this.map);
+  autocomplete.addListener('place_changed', function () {
+    var place = autocomplete.getPlace();
+
+    if (!place.place_id) {
+      window.alert('Please select an option from the dropdown list.');
+      return;
+    }
+
+    if (mode === 'ORIG') {
+      me.originPlaceId = place.place_id;
+    } else {
+      me.destinationPlaceId = place.place_id;
+    }
+
+    me.route();
+  });
+};
+
+AutocompleteDirectionsHandler.prototype.route = function () {
+  if (!this.originPlaceId || !this.destinationPlaceId) {
+    return;
+  }
+
+  var me = this;
+  this.directionsService.route({
+    origin: {
+      placeId: this.originPlaceId
+    },
+    destination: {
+      placeId: this.destinationPlaceId
+    },
+    travelMode: 'DRIVING'
+  }, function (res, status) {
+    if (status === 'OK') {
+      me.directionsRenderer.setDirections(res);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
+  });
+};
 
 /***/ })
 /******/ ]);

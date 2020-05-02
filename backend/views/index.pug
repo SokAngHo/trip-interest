@@ -2,11 +2,17 @@ extends layout
 
 block content
   .container
-    lablel(for="fromAddress") From
-    input(type="text" id="fromAddress" name="fromAddress")
+    .row(style="height: 500px")
+      .col
+        form
+          .form-group
+            lablel(for="origin-input") From
+            input.form-control(type="text" id="origin-input" name="origin-input")
 
-    label(for="toAddress") To
-    input(type="text" id="toAddress" name="toAddress")
+          .form-group
+            label(for="destination-input") To
+            input.form-control(type="text" id="destination-input" name="destination-input")
 
-  div(style="height:100px; width:100px;")
-    div(id="map" style="height:100px; width:100px;")
+
+      .col(style="background: teal")
+        #map(style="height:100%; width: 100%")
