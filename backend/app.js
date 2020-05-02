@@ -25,11 +25,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', routes);
 
 // Error handling for dev environment
-if (app.get('env') === 'development') {
-  app.use(errorHandlers.developmentErrors);
-}
+// if (app.get('env') === 'development') {
+//   app.use(errorHandlers.developmentErrors);
+// }
 
-// Error handling for prod environment
-app.use(errorHandlers.productionErrors);
+// // Error handling for prod environment
+// app.use(errorHandlers.productionErrors);
 
 module.exports = app;

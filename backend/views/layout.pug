@@ -7,9 +7,9 @@ html
 
   body
     block content
-    .container
-      .jumbotron Serving up HTML
 
     block scripts
+      script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&libraries=places`)
+      script(src='/dist/App.bundle.js')
       script(src='/js/jquery.min.js')
       script(src='/js/bootstrap.min.js')

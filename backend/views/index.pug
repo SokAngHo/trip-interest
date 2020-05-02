@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .container
+    lablel(for="fromAddress") From
+    input(type="text" id="fromAddress" name="fromAddress")
+
+    label(for="toAddress") To
+    input(type="text" id="toAddress" name="toAddress")
+
+  div(style="height:100px; width:100px;")
+    div(id="map" style="height:100px; width:100px;")
