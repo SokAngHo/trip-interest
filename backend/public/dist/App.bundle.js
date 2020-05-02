@@ -93,6 +93,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 
 Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["initMap"])();
+Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(document.getElementById('orig-text-input'), document.getElementById('orig-id'));
+Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(document.getElementById('dest-text-input'), document.getElementById('dest-id'));
 
 /***/ }),
 /* 1 */
@@ -101,6 +103,7 @@ Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["initMap"])();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initMap", function() { return initMap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "autocomplete", function() { return autocomplete; });
 function initMap() {
   // Initilise map to Melbourne location
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -109,8 +112,19 @@ function initMap() {
       lng: 144.9631
     },
     zoom: 8
+  }); // new AutocompleteDirectionsHandler(map);
+}
+function autocomplete(textInput, placeIdInput) {
+  if (!textInput) return;
+  var dropdown = new google.maps.places.Autocomplete(textInput);
+  dropdown.addListener('place_changed', function () {
+    var place = dropdown.getPlace();
+    placeIdInput.value = place.place_id;
+    console.log(place); //"ChIJP3Sa8ziYEmsRUKgyFmh9AQM"
   });
-  new AutocompleteDirectionsHandler(map);
+  textInput.addEventListener('keydown', function (e) {
+    if (e.keyCode === 13) e.preventDefault();
+  });
 }
 
 function AutocompleteDirectionsHandler(map) {

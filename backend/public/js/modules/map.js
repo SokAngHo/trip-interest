@@ -5,7 +5,23 @@ export function initMap() {
     zoom: 8,
   });
 
-  new AutocompleteDirectionsHandler(map);
+  // new AutocompleteDirectionsHandler(map);
+}
+
+export function autocomplete(textInput, placeIdInput) {
+  if (!textInput) return;
+
+  const dropdown = new google.maps.places.Autocomplete(textInput);
+
+  dropdown.addListener('place_changed', () => {
+    const place = dropdown.getPlace();
+    placeIdInput.value = place.place_id;
+    console.log(place); //"ChIJP3Sa8ziYEmsRUKgyFmh9AQM"
+  });
+
+  textInput.addEventListener('keydown', (e) => {
+    if (e.keyCode === 13) e.preventDefault();
+  });
 }
 
 function AutocompleteDirectionsHandler(map) {

@@ -4,14 +4,18 @@ block content
   .container
     .row(style="height: 500px")
       .col
-        form
+        form(action="/" method="GET")
           .form-group
-            lablel(for="origin-input") From
-            input.form-control(type="text" id="origin-input" name="origin-input")
+            lablel(for="orig-text-input") From
+            input.form-control(type="text" id="orig-text-input" value=origAddress)
+            input(type="hidden" id="orig-id" name="orig" value=orig)
 
           .form-group
-            label(for="destination-input") To
-            input.form-control(type="text" id="destination-input" name="destination-input")
+            label(for="dest-text-input") To
+            input.form-control(type="text" id="dest-text-input" value=destAddress)
+            input(type="hidden" id="dest-id" name="dest" value=dest)
+
+          button.btn.btn-primary(type="submit") Find routes
 
 
       .col(style="background: teal")
