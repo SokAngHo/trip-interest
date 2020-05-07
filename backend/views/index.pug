@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .container
+    .row(style="height: 500px")
+      .col
+        form(action="/" method="GET")
+          .form-group
+            lablel(for="orig-text-input") From
+            input.form-control(type="text" id="orig-text-input" value=origAddress)
+            input(type="hidden" id="orig-id" name="orig" value=orig)
+
+          .form-group
+            label(for="dest-text-input") To
+            input.form-control(type="text" id="dest-text-input" value=destAddress)
+            input(type="hidden" id="dest-id" name="dest" value=dest)
+
+          button.btn.btn-primary(type="submit") Find routes
+
+
+      .col(style="background: teal")
+        #map(style="height:100%; width: 100%")

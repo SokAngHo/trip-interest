@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title= 'trip-interest'
+    link(rel='stylesheet', href='/css/bootstrap.min.css')
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+
+  body
+    block content
+
+    block scripts
+      script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&libraries=places`)
+      script(src='/dist/App.bundle.js')
+      script(src='/js/jquery.min.js')
+      script(src='/js/bootstrap.min.js')
