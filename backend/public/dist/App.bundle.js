@@ -94,8 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 
 Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["initMap"])(); // Setup places auto completion on origin and destination inputs.
 
-Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(document.getElementById('orig-text-input'), document.getElementById('orig-id'));
-Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(document.getElementById('dest-text-input'), document.getElementById('dest-id'));
+Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(document.getElementById('orig') // document.getElementById('orig-id')
+);
+Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(document.getElementById('dest') // document.getElementById('dest-id')
+);
 
 /***/ }),
 /* 1 */
@@ -112,6 +114,12 @@ var directionsService;
 var directionsRenderer;
 var placesService;
 var routeBoxer;
+var routeBoxes = [];
+var infoWindow;
+var orig = document.getElementById('orig').value;
+var dest = document.getElementById('dest').value;
+var via = document.getElementById('via').value;
+var waypoints = [];
 function initMap() {
   // Initilise map to Melbourne location
   map = new google.maps.Map(document.getElementById('map'), {
@@ -125,42 +133,117 @@ function initMap() {
   directionsRenderer = new google.maps.DirectionsRenderer();
   placesService = new google.maps.places.PlacesService(map);
   directionsRenderer.setMap(map);
-  routeBoxer = new _RouteBoxer__WEBPACK_IMPORTED_MODULE_0__["RouteBoxer"](); // Draw routes on the map
+  routeBoxer = new _RouteBoxer__WEBPACK_IMPORTED_MODULE_0__["RouteBoxer"]();
+  infoWindow = new google.maps.InfoWindow(); // Draw routes on the map
 
-  drawRoutes(directionsService, directionsRenderer);
+  if (orig && dest) drawRoutes();
+  if (orig && dest && via) setTimeout(findPlaces, 1000);
 } // Google Map places auto completion on input
 
-function autocomplete(textInput, placeIdInput) {
+function autocomplete(textInput) {
   if (!textInput) return;
   var dropdown = new google.maps.places.Autocomplete(textInput);
   dropdown.addListener('place_changed', function () {
-    var place = dropdown.getPlace();
-    placeIdInput.value = place.place_id;
+    var place = dropdown.getPlace(); // placeIdInput.value = place.place_id;
   });
   textInput.addEventListener('keydown', function (e) {
     if (e.keyCode === 13) e.preventDefault();
   });
 }
 
-function drawRoutes(directionsService, directionsRenderer) {
+function drawRoutes() {
   directionsService.route({
-    origin: {
-      placeId: document.getElementById('orig-id').value
-    },
-    destination: {
-      placeId: document.getElementById('dest-id').value
-    },
+    origin: orig,
+    destination: dest,
+    waypoints: waypoints,
     travelMode: 'DRIVING'
   }, function (res, status) {
     if (status === 'OK') {
-      var route = res.routes[0];
-      var path = route.overview_path;
-      var distance = route.legs[0].distance.value / 15000;
-      var boxes = routeBoxer.box(path, distance);
-      drawBoxes(boxes);
       directionsRenderer.setDirections(res);
+      var route = res.routes[0]; // Don't box routes for route that is more than 300 km for budget purposes
+
+      if (route.legs[0].distance.value > 300000) {
+        window.alert("Sorry, it's too expensive to get places along route that is more than 300 km.");
+        return;
+      } // Only box routes for main route
+
+
+      if (waypoints <= 0) {
+        var path = route.overview_path;
+        var distance = 0.5; // radius around route is 500 m
+
+        routeBoxes = routeBoxer.box(path, distance); // drawBoxes(routeBoxes);
+      }
     } else {
       console.log(status);
+    }
+  });
+}
+
+function findPlaces() {
+  if (!routeBoxes) return;
+
+  for (var i = 0; i < routeBoxes.length; i++) {
+    var request = {
+      bounds: routeBoxes[i],
+      keyword: via
+    };
+    placesService.nearbySearch(request, function (res, status) {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        console.log(res);
+
+        for (var _i = 0; _i < res.length; _i++) {
+          createPlaceMarker(res[_i]);
+        }
+      }
+    });
+  }
+}
+
+function createPlaceMarker(place) {
+  var image = {
+    url: 'http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png',
+    // size: new google.maps.Size(71, 71),
+    // anchor: new google.maps.Point(17, 34),
+    scaledSize: new google.maps.Size(15, 15)
+  };
+  var marker = new google.maps.Marker({
+    map: map,
+    icon: image,
+    position: place.geometry.location
+  });
+  var placeReq = {
+    placeId: place.place_id
+  };
+  google.maps.event.addListener(marker, 'mouseover', function () {
+    setTimeout(function () {
+      getPlaceNameForMarker(placeReq, marker);
+    }, 300);
+  });
+  google.maps.event.addListener(marker, 'mouseout', function () {
+    infoWindow.close();
+  });
+  google.maps.event.addListener(marker, 'click', function () {
+    addWaypoints(placeReq);
+  });
+}
+
+function addWaypoints(place) {
+  // Clear waypoints to make sure only 1 waypoint is selected
+  if (waypoints.length > 0) waypoints = [];
+  waypoints.push({
+    location: place,
+    stopover: true
+  });
+  drawRoutes();
+}
+
+function getPlaceNameForMarker(place, marker) {
+  placesService.getDetails(place, function (res, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      var content = '<strong>' + res.name + '</strong>';
+      infoWindow.setContent(content);
+      infoWindow.open(map, marker);
     }
   });
 }

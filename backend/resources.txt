@@ -1,0 +1,6 @@
+Google Maps API
+- Info Windows: https://developers.google.com/maps/documentation/javascript/infowindows
+
+
+stackoverflow:
+- Get places along a route: https://stackoverflow.com/questions/17283826/how-to-to-get-places-e-g-gas-stations-along-route-between-origin-and-destinati

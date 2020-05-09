@@ -7,13 +7,13 @@ block content
         form(action="/" method="GET")
           .form-group
             lablel(for="orig-text-input") From
-            input.form-control(type="text" id="orig-text-input" value=origAddress)
-            input(type="hidden" id="orig-id" name="orig" value=orig)
+            input.form-control(type="text" id="orig" name="orig" value=orig)
+            //- input(type="hidden" id="orig-id" name="orig" value=orig)
 
           .form-group
             label(for="dest-text-input") To
-            input.form-control(type="text" id="dest-text-input" value=destAddress)
-            input(type="hidden" id="dest-id" name="dest" value=dest)
+            input.form-control(type="text" id="dest" name="dest" value=dest)
+            //- input(type="hidden" id="dest-id" name="dest" value=dest)
 
           .form-group
             label(for="via") Via
@@ -24,3 +24,6 @@ block content
 
       .col(style="background: teal")
         #map(style="height:100%; width: 100%")
+
+  //- script.
+  //-   const direction = '!{JSON.stringify(direction)}'
