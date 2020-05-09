@@ -1,4 +1,5 @@
 import { RouteBoxer } from './RouteBoxer';
+import { findPlaceFromText } from '@googlemaps/google-maps-services-js/dist/places/findplacefromtext';
 
 let map;
 let directionsService;
@@ -10,7 +11,8 @@ let infoWindow;
 const orig = document.getElementById('orig').value;
 const dest = document.getElementById('dest').value;
 const via = document.getElementById('via').value;
-let waypoints = [];
+let waypoint = document.getElementById('waypoint').value;
+const findRoutesBtn = document.getElementById('findRoutesBtn');
 
 export function initMap() {
   // Initilise map to Melbourne location
@@ -24,6 +26,7 @@ export function initMap() {
   directionsRenderer.setMap(map);
   routeBoxer = new RouteBoxer();
   infoWindow = new google.maps.InfoWindow();
+  findRoutesBtn.addEventListener('click', findRoutes);
 
   // Draw routes on the map
   if (orig && dest) drawRoutes();
@@ -46,11 +49,19 @@ export function autocomplete(textInput) {
 }
 
 function drawRoutes() {
+  let waypointsReq = [];
+
+  if (waypoint === '') {
+    waypointsReq = [];
+  } else {
+    waypointsReq[0] = { location: { placeId: waypoint }, stopover: true };
+  }
+
   directionsService.route(
     {
       origin: orig,
       destination: dest,
-      waypoints: waypoints,
+      waypoints: waypointsReq,
       travelMode: 'DRIVING',
     },
     function (res, status) {
@@ -66,13 +77,10 @@ function drawRoutes() {
           return;
         }
 
-        // Only box routes for main route
-        if (waypoints <= 0) {
-          const path = route.overview_path;
-          const distance = 0.5; // radius around route is 500 m
-          routeBoxes = routeBoxer.box(path, distance);
-          // drawBoxes(routeBoxes);
-        }
+        const path = route.overview_path;
+        const distance = 0.5; // radius around route is 500 m
+        routeBoxes = routeBoxer.box(path, distance);
+        // drawBoxes(routeBoxes);
       } else {
         console.log(status);
       }
@@ -132,10 +140,12 @@ function createPlaceMarker(place) {
 }
 
 function addWaypoints(place) {
-  // Clear waypoints to make sure only 1 waypoint is selected
-  if (waypoints.length > 0) waypoints = [];
+  const url = new URLSearchParams(document.location.search);
+  url.set('waypoint', place.placeId);
+  window.history.pushState({}, '', '?' + url.toString());
 
-  waypoints.push({ location: place, stopover: true });
+  // Set waupoint at index 0 rather than adding to arrays because only 1 waypoint is needed
+  waypoint = place.placeId;
   drawRoutes();
 }
 
@@ -147,6 +157,11 @@ function getPlaceNameForMarker(place, marker) {
       infoWindow.open(map, marker);
     }
   });
+}
+
+function findRoutes() {
+  waypoint = '';
+  document.getElementById('mapForm').submit();
 }
 
 // Utility function to draw route boxes for debugging

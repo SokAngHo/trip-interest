@@ -4,7 +4,7 @@ block content
   .container
     .row(style="height: 500px")
       .col
-        form(action="/" method="GET")
+        form(action="/" method="GET" id="mapForm")
           .form-group
             lablel(for="orig-text-input") From
             input.form-control(type="text" id="orig" name="orig" value=orig)
@@ -18,8 +18,9 @@ block content
           .form-group
             label(for="via") Via
             input.form-control(type="text" id="via" name="via" value=via)
+            input(type="hidden" id="waypoint" name="waypoint" value=waypoint)
 
-          button.btn.btn-primary(type="submit") Find routes
+          button.btn.btn-primary(type="button" id="findRoutesBtn") Find routes
 
 
       .col(style="background: teal")

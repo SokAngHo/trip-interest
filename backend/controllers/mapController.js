@@ -1,26 +1,18 @@
 const { Client, Status } = require('@googlemaps/google-maps-services-js');
 
-const RouteBoxer = require('../lib/RouteBoxer');
-
 const client = new Client({});
 
 exports.homePage = async (req, res) => {
   const orig = req.query.orig;
   const dest = req.query.dest;
   const via = req.query.via;
-
-  // const origDetails = orig && (await getPlaceDetails(orig));
-  // const destDetails = dest && (await getPlaceDetails(dest));
-
-  // const direction = await getDirection(orig, dest, [], 'DRIVING');
+  const waypoint = req.query.waypoint;
 
   res.render('index', {
     orig,
     dest,
-    // origAddress: origDetails.formatted_address,
-    // destAddress: destDetails.formatted_address,
     via,
-    // direction,
+    waypoint,
   });
 };
 
