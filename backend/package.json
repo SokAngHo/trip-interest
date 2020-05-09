@@ -19,6 +19,7 @@
     "dotenv": "8.2.0",
     "express": "4.17.1",
     "jquery": "3.5.0",
+    "leaflet-routeboxer": "1.0.4",
     "pug": "2.0.4"
   },
   "devDependencies": {

@@ -4,21 +4,17 @@ const client = new Client({});
 exports.homePage = async (req, res) => {
   const orig = req.query.orig || '';
   const dest = req.query.dest || '';
+  const via = req.query.via || '';
 
   const origDetails = orig && (await getPlaceDetails(orig));
   const destDetails = dest && (await getPlaceDetails(dest));
-
-  // const routes = await getRoutes(
-  //   origDetails.geometry.location,
-  //   destDetails.geometry.location,
-  //   'DRIVING'
-  // );
 
   res.render('index', {
     orig,
     dest,
     origAddress: origDetails.formatted_address,
     destAddress: destDetails.formatted_address,
+    via,
     // routes,
   });
 };

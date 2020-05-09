@@ -1,14 +1,25 @@
-import axios from 'axios';
+import { RouteBoxer } from './RouteBoxer';
+
+let map;
+let directionsService;
+let directionsRenderer;
+let placesService;
+let routeBoxer;
 
 export function initMap() {
   // Initilise map to Melbourne location
-  const map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: -37.8136, lng: 144.9631 },
     zoom: 8,
   });
+  directionsService = new google.maps.DirectionsService();
+  directionsRenderer = new google.maps.DirectionsRenderer();
+  placesService = new google.maps.places.PlacesService(map);
+  directionsRenderer.setMap(map);
+  routeBoxer = new RouteBoxer();
 
   // Draw routes on the map
-  drawRoutes(map);
+  drawRoutes(directionsService, directionsRenderer);
 }
 
 // Google Map places auto completion on input
@@ -26,11 +37,7 @@ export function autocomplete(textInput, placeIdInput) {
   });
 }
 
-function drawRoutes(map) {
-  const directionsService = new google.maps.DirectionsService();
-  const directionsRenderer = new google.maps.DirectionsRenderer();
-  directionsRenderer.setMap(map);
-
+function drawRoutes(directionsService, directionsRenderer) {
   directionsService.route(
     {
       origin: { placeId: document.getElementById('orig-id').value },
@@ -39,10 +46,29 @@ function drawRoutes(map) {
     },
     function (res, status) {
       if (status === 'OK') {
+        const route = res.routes[0];
+        const path = route.overview_path;
+        const distance = route.legs[0].distance.value / 15000;
+        const boxes = routeBoxer.box(path, distance);
+        drawBoxes(boxes);
         directionsRenderer.setDirections(res);
       } else {
         console.log(status);
       }
     }
   );
+}
+
+function drawBoxes(boxes) {
+  var boxpolys = new Array(boxes.length);
+  for (var i = 0; i < boxes.length; i++) {
+    boxpolys[i] = new google.maps.Rectangle({
+      bounds: boxes[i],
+      fillOpacity: 0,
+      strokeOpacity: 1.0,
+      strokeColor: '#000000',
+      strokeWeight: 1,
+      map: map,
+    });
+  }
 }
