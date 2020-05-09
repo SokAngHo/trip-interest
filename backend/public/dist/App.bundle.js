@@ -246,7 +246,8 @@ function getPlaceNameForMarker(place, marker) {
       infoWindow.open(map, marker);
     }
   });
-}
+} // Utility function to draw route boxes for debugging
+
 
 function drawBoxes(boxes) {
   var boxpolys = new Array(boxes.length);

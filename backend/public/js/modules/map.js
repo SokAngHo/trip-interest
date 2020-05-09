@@ -149,6 +149,7 @@ function getPlaceNameForMarker(place, marker) {
   });
 }
 
+// Utility function to draw route boxes for debugging
 function drawBoxes(boxes) {
   var boxpolys = new Array(boxes.length);
   for (var i = 0; i < boxes.length; i++) {
