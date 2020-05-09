@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./index.js",
     "watch": "nodemon ./index.js --ignore public/",
-    "dev": "concurrently 'npm run watch' 'npm run assets' --names '💻,📦' --prefix name",
+    "dev": "concurrently \"npm run watch\" \"npm run assets\" --names \"backend,frontend\" --prefix name",
     "assets": "webpack -w --display-max-modules 0"
   },
   "author": "",
@@ -15,17 +15,16 @@
     "axios": "0.19.2",
     "body-parser": "1.19.0",
     "bootstrap": "4.4.1",
-    "concurrently": "5.2.0",
     "dotenv": "8.2.0",
     "express": "4.17.1",
     "jquery": "3.5.0",
-    "leaflet-routeboxer": "1.0.4",
     "pug": "2.0.4"
   },
   "devDependencies": {
     "@babel/core": "7.9.6",
     "@babel/preset-env": "7.9.6",
     "babel-loader": "8.1.0",
+    "concurrently": "5.2.0",
     "nodemon": "2.0.3",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.11"
