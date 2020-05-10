@@ -110,6 +110,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RouteBoxer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var _googlemaps_google_maps_services_js_dist_places_findplacefromtext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var _googlemaps_google_maps_services_js_dist_places_findplacefromtext__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_googlemaps_google_maps_services_js_dist_places_findplacefromtext__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _googlemaps_google_maps_services_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(55);
+/* harmony import */ var _googlemaps_google_maps_services_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_googlemaps_google_maps_services_js__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 var map;
@@ -141,7 +144,7 @@ function initMap() {
   infoWindow = new google.maps.InfoWindow();
   findRoutesBtn.addEventListener('click', findRoutes); // Draw routes on the map
 
-  if (orig && dest) drawRoutes();
+  if (orig && dest) drawRoute();
   if (orig && dest && via) setTimeout(findPlaces, 1000);
 } // Google Map places auto completion on input
 
@@ -156,7 +159,7 @@ function autocomplete(textInput) {
   });
 }
 
-function drawRoutes() {
+function drawRoute() {
   var waypointsReq = [];
 
   if (waypoint.value === '') {
@@ -178,7 +181,9 @@ function drawRoutes() {
   }, function (res, status) {
     if (status === 'OK') {
       directionsRenderer.setDirections(res);
-      var route = res.routes[0]; // Don't box routes for route that is more than 300 km for budget purposes
+      var route = res.routes[0];
+      console.log(route);
+      displayRouteInfo(route); // Don't box routes for route that is more than 300 km for budget purposes
 
       if (route.legs[0].distance.value > 300000) {
         window.alert("Sorry, it's too expensive to get places along route that is more than 300 km.");
@@ -193,6 +198,57 @@ function drawRoutes() {
       console.log(status);
     }
   });
+} // Display route summary info
+
+
+function displayRouteInfo(route) {
+  var routeInfo = document.getElementById('route-info'); // Clear route info
+
+  routeInfo.innerHTML = '';
+  var arrow1 = document.createElement('div');
+  arrow1.classList.add('col-auto');
+  var arrowIcon = document.createElement('i');
+  arrowIcon.classList.add('fas', 'fa-long-arrow-alt-right');
+  arrow1.appendChild(arrowIcon);
+  var arrow2 = document.createElement('div');
+  arrow2.classList.add('col-auto');
+  var arrowIcon2 = document.createElement('i');
+  arrowIcon2.classList.add('fas', 'fa-long-arrow-alt-right');
+  arrow2.appendChild(arrowIcon2);
+  var startAddress = document.createElement('div');
+  startAddress.classList.add('col');
+  startAddress.innerText = route.legs[0].start_address;
+  var stopoverAddress;
+  var endAddress = document.createElement('div');
+  endAddress.classList.add('col');
+  endAddress.innerText = route.legs[0].end_address;
+  var distance = document.createElement('div');
+  distance.classList.add('col-auto');
+  distance.innerText = route.legs[0].distance.text;
+  var duration = document.createElement('div');
+  duration.classList.add('col-auto');
+  duration.innerText = route.legs[0].duration.text; // When there is stopover
+
+  if (route.legs.length > 1) {
+    stopoverAddress = document.createElement('div');
+    stopoverAddress.classList.add('col');
+    stopoverAddress.innerText = route.legs[0].end_address;
+    endAddress.innerText = route.legs[1].end_address; // total distance in km
+
+    var totalDistance = (route.legs[0].distance.value + route.legs[1].distance.value) / 1000;
+    distance.innerText = totalDistance + ' km'; // total duration in mins
+
+    var totalDuration = (route.legs[0].duration.value + route.legs[1].duration.value) / 60;
+    duration.innerText = totalDuration + ' mins';
+  }
+
+  routeInfo.appendChild(startAddress);
+  routeInfo.appendChild(arrow1);
+  if (typeof stopoverAddress !== 'undefined') routeInfo.appendChild(stopoverAddress);
+  if (typeof stopoverAddress !== 'undefined') routeInfo.appendChild(arrow2);
+  routeInfo.appendChild(endAddress);
+  routeInfo.appendChild(distance);
+  routeInfo.appendChild(duration);
 }
 
 function findPlaces() {
@@ -239,8 +295,12 @@ function createPlaceMarker(place) {
     infoWindow.close();
   });
   google.maps.event.addListener(marker, 'click', function () {
-    addWaypoints(placeReq);
+    selectAPlace(placeReq);
   });
+}
+
+function selectAPlace(place) {
+  addWaypoints(place);
 }
 
 function addWaypoints(place) {
@@ -249,7 +309,7 @@ function addWaypoints(place) {
   window.history.pushState({}, '', '?' + url.toString()); // Set waupoint at index 0 rather than adding to arrays because only 1 waypoint is needed
 
   waypoint.value = place.placeId;
-  drawRoutes();
+  drawRoute();
 }
 
 function getPlaceNameForMarker(place, marker) {

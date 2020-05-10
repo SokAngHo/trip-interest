@@ -1,5 +1,6 @@
 import { RouteBoxer } from './RouteBoxer';
 import { findPlaceFromText } from '@googlemaps/google-maps-services-js/dist/places/findplacefromtext';
+import { AddressType } from '@googlemaps/google-maps-services-js';
 
 let map;
 let directionsService;
@@ -29,7 +30,7 @@ export function initMap() {
   findRoutesBtn.addEventListener('click', findRoutes);
 
   // Draw routes on the map
-  if (orig && dest) drawRoutes();
+  if (orig && dest) drawRoute();
   if (orig && dest && via) setTimeout(findPlaces, 1000);
 }
 
@@ -48,7 +49,7 @@ export function autocomplete(textInput) {
   });
 }
 
-function drawRoutes() {
+function drawRoute() {
   let waypointsReq = [];
 
   if (waypoint.value === '') {
@@ -68,6 +69,8 @@ function drawRoutes() {
       if (status === 'OK') {
         directionsRenderer.setDirections(res);
         const route = res.routes[0];
+        console.log(route);
+        displayRouteInfo(route);
 
         // Don't box routes for route that is more than 300 km for budget purposes
         if (route.legs[0].distance.value > 300000) {
@@ -86,6 +89,71 @@ function drawRoutes() {
       }
     }
   );
+}
+
+// Display route summary info
+function displayRouteInfo(route) {
+  const routeInfo = document.getElementById('route-info');
+
+  // Clear route info
+  routeInfo.innerHTML = '';
+
+  const arrow1 = document.createElement('div');
+  arrow1.classList.add('col-auto');
+  const arrowIcon = document.createElement('i');
+  arrowIcon.classList.add('fas', 'fa-long-arrow-alt-right');
+  arrow1.appendChild(arrowIcon);
+
+  const arrow2 = document.createElement('div');
+  arrow2.classList.add('col-auto');
+  const arrowIcon2 = document.createElement('i');
+  arrowIcon2.classList.add('fas', 'fa-long-arrow-alt-right');
+  arrow2.appendChild(arrowIcon2);
+
+  const startAddress = document.createElement('div');
+  startAddress.classList.add('col');
+  startAddress.innerText = route.legs[0].start_address;
+
+  let stopoverAddress;
+
+  const endAddress = document.createElement('div');
+  endAddress.classList.add('col');
+  endAddress.innerText = route.legs[0].end_address;
+
+  const distance = document.createElement('div');
+  distance.classList.add('col-auto');
+  distance.innerText = route.legs[0].distance.text;
+
+  const duration = document.createElement('div');
+  duration.classList.add('col-auto');
+  duration.innerText = route.legs[0].duration.text;
+
+  // When there is stopover
+  if (route.legs.length > 1) {
+    stopoverAddress = document.createElement('div');
+    stopoverAddress.classList.add('col');
+    stopoverAddress.innerText = route.legs[0].end_address;
+
+    endAddress.innerText = route.legs[1].end_address;
+
+    // total distance in km
+    const totalDistance =
+      (route.legs[0].distance.value + route.legs[1].distance.value) / 1000;
+    distance.innerText = totalDistance + ' km';
+    // total duration in mins
+    const totalDuration =
+      (route.legs[0].duration.value + route.legs[1].duration.value) / 60;
+    duration.innerText = totalDuration + ' mins';
+  }
+
+  routeInfo.appendChild(startAddress);
+  routeInfo.appendChild(arrow1);
+  if (typeof stopoverAddress !== 'undefined')
+    routeInfo.appendChild(stopoverAddress);
+  if (typeof stopoverAddress !== 'undefined') routeInfo.appendChild(arrow2);
+  routeInfo.appendChild(endAddress);
+  routeInfo.appendChild(distance);
+  routeInfo.appendChild(duration);
 }
 
 function findPlaces() {
@@ -135,8 +203,12 @@ function createPlaceMarker(place) {
     infoWindow.close();
   });
   google.maps.event.addListener(marker, 'click', function () {
-    addWaypoints(placeReq);
+    selectAPlace(placeReq);
   });
+}
+
+function selectAPlace(place) {
+  addWaypoints(place);
 }
 
 function addWaypoints(place) {
@@ -146,7 +218,7 @@ function addWaypoints(place) {
 
   // Set waupoint at index 0 rather than adding to arrays because only 1 waypoint is needed
   waypoint.value = place.placeId;
-  drawRoutes();
+  drawRoute();
 }
 
 function getPlaceNameForMarker(place, marker) {
