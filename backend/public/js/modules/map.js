@@ -11,7 +11,7 @@ let infoWindow;
 const orig = document.getElementById('orig').value;
 const dest = document.getElementById('dest').value;
 const via = document.getElementById('via').value;
-let waypoint = document.getElementById('waypoint').value;
+let waypoint = document.getElementById('waypoint');
 const findRoutesBtn = document.getElementById('findRoutesBtn');
 
 export function initMap() {
@@ -51,10 +51,10 @@ export function autocomplete(textInput) {
 function drawRoutes() {
   let waypointsReq = [];
 
-  if (waypoint === '') {
+  if (waypoint.value === '') {
     waypointsReq = [];
   } else {
-    waypointsReq[0] = { location: { placeId: waypoint }, stopover: true };
+    waypointsReq[0] = { location: { placeId: waypoint.value }, stopover: true };
   }
 
   directionsService.route(
@@ -145,7 +145,7 @@ function addWaypoints(place) {
   window.history.pushState({}, '', '?' + url.toString());
 
   // Set waupoint at index 0 rather than adding to arrays because only 1 waypoint is needed
-  waypoint = place.placeId;
+  waypoint.value = place.placeId;
   drawRoutes();
 }
 
@@ -160,7 +160,7 @@ function getPlaceNameForMarker(place, marker) {
 }
 
 function findRoutes() {
-  waypoint = '';
+  waypoint.value = '';
   document.getElementById('mapForm').submit();
 }
 

@@ -122,7 +122,7 @@ var infoWindow;
 var orig = document.getElementById('orig').value;
 var dest = document.getElementById('dest').value;
 var via = document.getElementById('via').value;
-var waypoint = document.getElementById('waypoint').value;
+var waypoint = document.getElementById('waypoint');
 var findRoutesBtn = document.getElementById('findRoutesBtn');
 function initMap() {
   // Initilise map to Melbourne location
@@ -159,12 +159,12 @@ function autocomplete(textInput) {
 function drawRoutes() {
   var waypointsReq = [];
 
-  if (waypoint === '') {
+  if (waypoint.value === '') {
     waypointsReq = [];
   } else {
     waypointsReq[0] = {
       location: {
-        placeId: waypoint
+        placeId: waypoint.value
       },
       stopover: true
     };
@@ -248,7 +248,7 @@ function addWaypoints(place) {
   url.set('waypoint', place.placeId);
   window.history.pushState({}, '', '?' + url.toString()); // Set waupoint at index 0 rather than adding to arrays because only 1 waypoint is needed
 
-  waypoint = place.placeId;
+  waypoint.value = place.placeId;
   drawRoutes();
 }
 
@@ -263,7 +263,7 @@ function getPlaceNameForMarker(place, marker) {
 }
 
 function findRoutes() {
-  waypoint = '';
+  waypoint.value = '';
   document.getElementById('mapForm').submit();
 } // Utility function to draw route boxes for debugging
 
