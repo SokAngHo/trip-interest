@@ -236,10 +236,10 @@ function displayRouteInfo(route) {
     endAddress.innerText = route.legs[1].end_address; // total distance in km
 
     var totalDistance = (route.legs[0].distance.value + route.legs[1].distance.value) / 1000;
-    distance.innerText = totalDistance + ' km'; // total duration in mins
+    distance.innerText = totalDistance.toFixed(1) + ' km'; // total duration in mins
 
     var totalDuration = (route.legs[0].duration.value + route.legs[1].duration.value) / 60;
-    duration.innerText = totalDuration + ' mins';
+    duration.innerText = totalDuration.toFixed() + ' mins';
   }
 
   routeInfo.appendChild(startAddress);
