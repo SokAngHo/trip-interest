@@ -1,22 +1,40 @@
 extends layout
 
 block content
-  .container
-    .row(style="height: 500px")
+  .container-fluid
+    .card.my-3#selected-route-card
+      .card-body#selected-route
+        .row
+          .col
+            .row.justify-content-around#route-info
+          .col-2#route-share h4
+            //- .col-0#start-address
+            //- .col-0 hi
+            //- .col-0#stopover-address
+            //- .col-0 hi
+            //- .col-0#end-address
+            //- .col-1#share-route h4
+
+    .row(style="height: 800px")
       .col
-        form(action="/" method="GET")
+        form(action="/" method="GET" id="mapForm")
           .form-group
             lablel(for="orig-text-input") From
-            input.form-control(type="text" id="orig-text-input" value=origAddress)
-            input(type="hidden" id="orig-id" name="orig" value=orig)
+            input.form-control(type="text" id="orig" name="orig" value=orig)
+            //- input(type="hidden" id="orig-id" name="orig" value=orig)
 
           .form-group
             label(for="dest-text-input") To
-            input.form-control(type="text" id="dest-text-input" value=destAddress)
-            input(type="hidden" id="dest-id" name="dest" value=dest)
+            input.form-control(type="text" id="dest" name="dest" value=dest)
+            //- input(type="hidden" id="dest-id" name="dest" value=dest)
 
-          button.btn.btn-primary(type="submit") Find routes
+          .form-group
+            label(for="via") Via
+            input.form-control(type="text" id="via" name="via" value=via)
+            input(type="hidden" id="waypoint" name="waypoint" value=waypoint)
 
+          button.btn.btn-primary(type="button" id="findRoutesBtn") Find routes
 
-      .col(style="background: teal")
-        #map(style="height:100%; width: 100%")
+      .col-8
+        #map-canvas
+          #map

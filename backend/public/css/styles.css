@@ -1,0 +1,24 @@
+#map-canvas {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  z-index: -1;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+#selected-route-card {
+  background-color: violet;
+}
+
+#selected-route > .row > div {
+  /* border: 1px solid black; */
+}
+
+#selected-route > .row > div > .row > div {
+  /* border: 1px solid black; */
+}
