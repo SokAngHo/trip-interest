@@ -15,10 +15,6 @@
   background-color: violet;
 }
 
-#selected-route > .row > div {
-  /* border: 1px solid black; */
-}
-
-#selected-route > .row > div > .row > div {
-  /* border: 1px solid black; */
+#route-share {
+  vertical-align: baseline;
 }

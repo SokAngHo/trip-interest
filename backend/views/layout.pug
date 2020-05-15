@@ -12,6 +12,8 @@ html
 
     block scripts
       script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&libraries=places`)
+      //- https://publish.twitter.com/#
+      script(async src="https://platform.twitter.com/widgets.js" charset="utf-8")
       script(src='/dist/App.bundle.js')
       script(src='/js/jquery.min.js')
       script(src='/js/bootstrap.min.js')
