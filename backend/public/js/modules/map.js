@@ -93,6 +93,8 @@ function drawRoute() {
 
 // Display route summary info
 function displayRouteInfo(route) {
+  // Unhide selected route card
+  document.getElementById('selected-route-card').style.visibility = 'visible';
   const routeInfo = document.getElementById('route-info');
 
   // Clear route info
@@ -137,19 +139,16 @@ function displayRouteInfo(route) {
     endAddress.innerText = route.legs[1].end_address;
 
     // total distance in km
-    const totalDistance =
-      (route.legs[0].distance.value + route.legs[1].distance.value) / 1000;
+    const totalDistance = (route.legs[0].distance.value + route.legs[1].distance.value) / 1000;
     distance.innerText = totalDistance.toFixed(1) + ' km';
     // total duration in mins
-    const totalDuration =
-      (route.legs[0].duration.value + route.legs[1].duration.value) / 60;
+    const totalDuration = (route.legs[0].duration.value + route.legs[1].duration.value) / 60;
     duration.innerText = totalDuration.toFixed() + ' mins';
   }
 
   routeInfo.appendChild(startAddress);
   routeInfo.appendChild(arrow1);
-  if (typeof stopoverAddress !== 'undefined')
-    routeInfo.appendChild(stopoverAddress);
+  if (typeof stopoverAddress !== 'undefined') routeInfo.appendChild(stopoverAddress);
   if (typeof stopoverAddress !== 'undefined') routeInfo.appendChild(arrow2);
   routeInfo.appendChild(endAddress);
   routeInfo.appendChild(distance);

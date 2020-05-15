@@ -13,8 +13,6 @@
 
 #selected-route-card {
   background-color: violet;
-}
-
-#route-share {
-  vertical-align: baseline;
+  /* default to hidden */
+  visibility: hidden;
 }

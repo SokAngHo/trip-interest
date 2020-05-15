@@ -8,8 +8,9 @@ block content
           .col
             .row.justify-content-around#route-info
           .col-2#route-share
-            //- https://publish.twitter.com/#
-            a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text=shareMessage data-url=fullUrl data-hashtags="trip-interest" data-size="large") Tweet
+              //- https://publish.twitter.com/#
+              if(orig && dest)
+                a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text=shareMessage data-url=fullUrl data-hashtags="tripinterest" data-size="large") Tweet
 
     .row(style="height: 800px")
       .col
