@@ -1,4 +1,5 @@
 import { initMap, autocomplete } from './modules/map';
+
 const orig = document.getElementById('orig');
 const dest = document.getElementById('dest');
 

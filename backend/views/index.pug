@@ -35,3 +35,7 @@ block content
       .col-8
         #map-canvas
           #map
+
+block scripts
+  script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&libraries=places`)
+  script(src='/dist/App.bundle.js')

@@ -13,6 +13,7 @@ const javascript = {
 const config = {
   entry: {
     App: './public/js/index.js',
+    Login: './public/js/login.js',
   },
   watchOptions: {
     ignored: '/node_modules/',
