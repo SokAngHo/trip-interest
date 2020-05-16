@@ -4,9 +4,10 @@ html
     title= 'trip-interest'
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/styles.css')
-    //- link(type='text/css' rel='stylesheet' href='https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css')
     meta(name="viewport" content="width=device-width, initial-scale=1")
+    //- Fontawesome
     script(src="https://kit.fontawesome.com/265005b203.js" crossorigin="anonymous")
+    block head
 
   body
     header
@@ -18,13 +19,16 @@ html
             a.nav-item.nav-link(href='/favourites') Favourites
 
           .navbar-nav.ml-auto
-            form.form-inline(action="/login" method="GET")
-              button.btn.btn-outline-success(type="submit") Login
+            .navbar-text.mx-2#user
+            a.btn.btn-outline-success#login-btn(href="/login") Login
+            button.btn.btn-outline-success#logout-btn(onclick="logout()" type="button") Logout
+
 
     block content
 
     //- https://publish.twitter.com/#
     script(async src="https://platform.twitter.com/widgets.js" charset="utf-8")
+    script(src='/dist/Auth.bundle.js')
     script(src='/js/jquery.min.js')
     script(src='/js/bootstrap.min.js')
     block scripts

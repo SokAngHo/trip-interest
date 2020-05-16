@@ -8,7 +8,7 @@ block content
           .col
             .row.justify-content-around#route-info
           .col-2#route-share
-              //- https://publish.twitter.com/#
+              //- https://publish.twitter.com/
               if(orig && dest)
                 a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text=shareMessage data-url=fullUrl data-hashtags="tripinterest" data-size="large") Tweet
 
@@ -18,12 +18,10 @@ block content
           .form-group
             lablel(for="orig-text-input") From
             input.form-control(type="text" id="orig" name="orig" value=orig)
-            //- input(type="hidden" id="orig-id" name="orig" value=orig)
 
           .form-group
             label(for="dest-text-input") To
             input.form-control(type="text" id="dest" name="dest" value=dest)
-            //- input(type="hidden" id="dest-id" name="dest" value=dest)
 
           .form-group
             label(for="via") Via
@@ -37,5 +35,6 @@ block content
           #map
 
 block scripts
+  //- Google maps
   script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&libraries=places`)
   script(src='/dist/App.bundle.js')

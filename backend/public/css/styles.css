@@ -16,3 +16,9 @@
   /* default to hidden */
   visibility: hidden;
 }
+
+#user,
+#login-btn,
+#logout-btn {
+  display: none;
+}

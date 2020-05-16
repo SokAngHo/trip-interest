@@ -1,3 +1,5 @@
+// Adapted from wesbos NodeJS course
+
 const path = require('path');
 
 const javascript = {
@@ -14,6 +16,7 @@ const config = {
   entry: {
     App: './public/js/index.js',
     Login: './public/js/login.js',
+    Auth: './public/js/auth.js',
   },
   watchOptions: {
     ignored: '/node_modules/',
