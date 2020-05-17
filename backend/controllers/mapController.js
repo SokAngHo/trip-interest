@@ -3,12 +3,19 @@ const { Client, Status } = require('@googlemaps/google-maps-services-js');
 const client = new Client({});
 
 exports.homePage = async (req, res) => {
+  const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
   const orig = req.query.orig;
   const dest = req.query.dest;
   const via = req.query.via;
   const waypoint = req.query.waypoint;
 
+  let shareMessage;
+  if (orig && dest) shareMessage = `${orig} to ${dest}`;
+  if (via) shareMessage += ` via ${via}`;
+
   res.render('index', {
+    shareMessage,
+    fullUrl,
     orig,
     dest,
     via,

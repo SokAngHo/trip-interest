@@ -92,12 +92,12 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 
+var orig = document.getElementById('orig');
+var dest = document.getElementById('dest');
 Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["initMap"])(); // Setup places auto completion on origin and destination inputs.
 
-Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(document.getElementById('orig') // document.getElementById('orig-id')
-);
-Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(document.getElementById('dest') // document.getElementById('dest-id')
-);
+Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(orig);
+Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(dest);
 
 /***/ }),
 /* 1 */
@@ -202,6 +202,8 @@ function drawRoute() {
 
 
 function displayRouteInfo(route) {
+  // Unhide selected route card
+  document.getElementById('selected-route-card').style.visibility = 'visible';
   var routeInfo = document.getElementById('route-info'); // Clear route info
 
   routeInfo.innerHTML = '';
@@ -5371,7 +5373,7 @@ __export(__webpack_require__(4));
 /* 56 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"_args\":[[\"@googlemaps/google-maps-services-js@2.6.0\",\"C:\\\\Users\\\\Pain\\\\code\\\\cloud-computing\\\\trip-interest\\\\backend\"]],\"_from\":\"@googlemaps/google-maps-services-js@2.6.0\",\"_id\":\"@googlemaps/google-maps-services-js@2.6.0\",\"_inBundle\":false,\"_integrity\":\"sha512-+eVnmvMxfp++yGiwewSUyNtAy0Rd6E2b+Fs9IlzWERq0J8jsX4U/s9LoG0qc+yNEYZGh0GX6fNYVGpYyuZ4+Yw==\",\"_location\":\"/@googlemaps/google-maps-services-js\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"@googlemaps/google-maps-services-js@2.6.0\",\"name\":\"@googlemaps/google-maps-services-js\",\"escapedName\":\"@googlemaps%2fgoogle-maps-services-js\",\"scope\":\"@googlemaps\",\"rawSpec\":\"2.6.0\",\"saveSpec\":null,\"fetchSpec\":\"2.6.0\"},\"_requiredBy\":[\"/\"],\"_resolved\":\"https://registry.npmjs.org/@googlemaps/google-maps-services-js/-/google-maps-services-js-2.6.0.tgz\",\"_spec\":\"2.6.0\",\"_where\":\"C:\\\\Users\\\\Pain\\\\code\\\\cloud-computing\\\\trip-interest\\\\backend\",\"author\":{\"name\":\"Google Inc.\"},\"bugs\":{\"url\":\"https://github.com/googlemaps/google-maps-services-js/issues\"},\"contributors\":[{\"name\":\"Justin Poehnelt\",\"email\":\"jpoehnelt@google.com\"}],\"dependencies\":{\"agentkeepalive\":\"^4.1.0\",\"axios\":\"^0.19.0\",\"query-string\":\"^6.11.0\",\"retry-axios\":\"^2.1.2\"},\"description\":\"Node.js client library for Google Maps API Web Services\",\"devDependencies\":{\"@semantic-release/changelog\":\"^5.0.0\",\"@semantic-release/git\":\"^9.0.0\",\"@semantic-release/github\":\"^7.0.3\",\"@semantic-release/release-notes-generator\":\"^9.0.0\",\"@types/jest\":\"^25.0.25\",\"@types/node\":\"^12.12.15\",\"codecov\":\">=3.6.5\",\"jest\":\"^25.2.2\",\"semantic-release\":\"^17.0.2\",\"ts-jest\":\"^25.2.1\",\"typedoc\":\"^0.16.11\",\"typescript\":\"^3.7.4\"},\"files\":[\"dist\"],\"homepage\":\"https://github.com/googlemaps/google-maps-services-js\",\"keywords\":[\"google\",\"maps\",\"googlemaps\",\"geo\",\"geocode\",\"timezone\",\"api\",\"client\",\"roads\",\"directions\",\"navigation\"],\"license\":\"Apache-2.0\",\"main\":\"./dist/index.js\",\"name\":\"@googlemaps/google-maps-services-js\",\"publishConfig\":{\"registry\":\"https://wombat-dressing-room.appspot.com\",\"access\":\"public\"},\"release\":{\"plugins\":[\"@semantic-release/commit-analyzer\",\"@semantic-release/release-notes-generator\",\"@semantic-release/changelog\",\"@semantic-release/npm\",\"@semantic-release/github\"]},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/googlemaps/google-maps-services-js.git\"},\"scripts\":{\"docs\":\"rm -rf docs/ && typedoc .\",\"prepare\":\"tsc\",\"test\":\"jest src\",\"test:all\":\"jest\",\"test:e2e\":\"jest e2e\"},\"version\":\"2.6.0\"}");
+module.exports = JSON.parse("{\"_from\":\"@googlemaps/google-maps-services-js\",\"_id\":\"@googlemaps/google-maps-services-js@2.6.0\",\"_inBundle\":false,\"_integrity\":\"sha512-+eVnmvMxfp++yGiwewSUyNtAy0Rd6E2b+Fs9IlzWERq0J8jsX4U/s9LoG0qc+yNEYZGh0GX6fNYVGpYyuZ4+Yw==\",\"_location\":\"/@googlemaps/google-maps-services-js\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"tag\",\"registry\":true,\"raw\":\"@googlemaps/google-maps-services-js\",\"name\":\"@googlemaps/google-maps-services-js\",\"escapedName\":\"@googlemaps%2fgoogle-maps-services-js\",\"scope\":\"@googlemaps\",\"rawSpec\":\"\",\"saveSpec\":null,\"fetchSpec\":\"latest\"},\"_requiredBy\":[\"#USER\",\"/\"],\"_resolved\":\"https://registry.npmjs.org/@googlemaps/google-maps-services-js/-/google-maps-services-js-2.6.0.tgz\",\"_shasum\":\"cbaacf8f0f8961f9faf94c83231d1640aef38aec\",\"_spec\":\"@googlemaps/google-maps-services-js\",\"_where\":\"/Users/sokang/code/cloud-computing/trip-interest/backend\",\"author\":{\"name\":\"Google Inc.\"},\"bugs\":{\"url\":\"https://github.com/googlemaps/google-maps-services-js/issues\"},\"bundleDependencies\":false,\"contributors\":[{\"name\":\"Justin Poehnelt\",\"email\":\"jpoehnelt@google.com\"}],\"dependencies\":{\"agentkeepalive\":\"^4.1.0\",\"axios\":\"^0.19.0\",\"query-string\":\"^6.11.0\",\"retry-axios\":\"^2.1.2\"},\"deprecated\":false,\"description\":\"Node.js client library for Google Maps API Web Services\",\"devDependencies\":{\"@semantic-release/changelog\":\"^5.0.0\",\"@semantic-release/git\":\"^9.0.0\",\"@semantic-release/github\":\"^7.0.3\",\"@semantic-release/release-notes-generator\":\"^9.0.0\",\"@types/jest\":\"^25.0.25\",\"@types/node\":\"^12.12.15\",\"codecov\":\">=3.6.5\",\"jest\":\"^25.2.2\",\"semantic-release\":\"^17.0.2\",\"ts-jest\":\"^25.2.1\",\"typedoc\":\"^0.16.11\",\"typescript\":\"^3.7.4\"},\"files\":[\"dist\"],\"homepage\":\"https://github.com/googlemaps/google-maps-services-js\",\"keywords\":[\"google\",\"maps\",\"googlemaps\",\"geo\",\"geocode\",\"timezone\",\"api\",\"client\",\"roads\",\"directions\",\"navigation\"],\"license\":\"Apache-2.0\",\"main\":\"./dist/index.js\",\"name\":\"@googlemaps/google-maps-services-js\",\"publishConfig\":{\"registry\":\"https://wombat-dressing-room.appspot.com\",\"access\":\"public\"},\"release\":{\"plugins\":[\"@semantic-release/commit-analyzer\",\"@semantic-release/release-notes-generator\",\"@semantic-release/changelog\",\"@semantic-release/npm\",\"@semantic-release/github\"]},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/googlemaps/google-maps-services-js.git\"},\"scripts\":{\"docs\":\"rm -rf docs/ && typedoc .\",\"prepare\":\"tsc\",\"test\":\"jest src\",\"test:all\":\"jest\",\"test:e2e\":\"jest e2e\"},\"version\":\"2.6.0\"}");
 
 /***/ }),
 /* 57 */

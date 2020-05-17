@@ -13,12 +13,6 @@
 
 #selected-route-card {
   background-color: violet;
-}
-
-#selected-route > .row > div {
-  /* border: 1px solid black; */
-}
-
-#selected-route > .row > div > .row > div {
-  /* border: 1px solid black; */
+  /* default to hidden */
+  visibility: hidden;
 }
