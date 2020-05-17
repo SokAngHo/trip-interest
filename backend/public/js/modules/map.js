@@ -69,7 +69,6 @@ function drawRoute() {
       if (status === 'OK') {
         directionsRenderer.setDirections(res);
         const route = res.routes[0];
-        console.log(route);
         displayRouteInfo(route);
 
         // Don't box routes for route that is more than 300 km for budget purposes
@@ -166,7 +165,6 @@ function findPlaces() {
 
     placesService.nearbySearch(request, function (res, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        console.log(res);
         for (let i = 0; i < res.length; i++) {
           createPlaceMarker(res[i]);
         }
