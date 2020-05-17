@@ -1,0 +1,10 @@
+extends layout
+
+block head
+  link(type='text/css' rel='stylesheet' href='https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css')
+
+block content
+  #firebaseui-auth-container
+
+block scripts
+  script(src='/dist/Login.bundle.js')

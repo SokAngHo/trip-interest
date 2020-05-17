@@ -5,15 +5,30 @@ html
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/styles.css')
     meta(name="viewport" content="width=device-width, initial-scale=1")
+    //- Fontawesome
     script(src="https://kit.fontawesome.com/265005b203.js" crossorigin="anonymous")
+    block head
 
   body
+    header
+      block navbar
+        nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+          a.navbar-brand(href="/") Trip-Interest
+          .navbar-nav.nav-pills
+            a.nav-item.nav-link(href='/' class="active") Home
+            a.nav-item.nav-link(href='/favourites') Favourites
+
+          .navbar-nav.ml-auto
+            .navbar-text.mx-2#user
+            a.btn.btn-outline-success#login-btn(href="/login") Login
+            button.btn.btn-outline-success#logout-btn(onclick="logout()" type="button") Logout
+
+
     block content
 
+    //- https://publish.twitter.com/#
+    script(async src="https://platform.twitter.com/widgets.js" charset="utf-8")
+    script(src='/dist/Auth.bundle.js')
+    script(src='/js/jquery.min.js')
+    script(src='/js/bootstrap.min.js')
     block scripts
-      script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&libraries=places`)
-      //- https://publish.twitter.com/#
-      script(async src="https://platform.twitter.com/widgets.js" charset="utf-8")
-      script(src='/dist/App.bundle.js')
-      script(src='/js/jquery.min.js')
-      script(src='/js/bootstrap.min.js')

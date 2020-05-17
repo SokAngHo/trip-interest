@@ -3,7 +3,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 const routes = require('./routes');
-const errorHandlers = require('./handlers/errorHandlers');
 
 const app = express();
 
@@ -23,13 +22,5 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes handling
 app.use('/', routes);
-
-// Error handling for dev environment
-// if (app.get('env') === 'development') {
-//   app.use(errorHandlers.developmentErrors);
-// }
-
-// // Error handling for prod environment
-// app.use(errorHandlers.productionErrors);
 
 module.exports = app;
