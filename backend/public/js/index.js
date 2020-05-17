@@ -1,4 +1,4 @@
-import { initMap, autocomplete, saveRoute, deleteRoute } from './modules/map';
+import { initMap, autocomplete, saveRoute, deleteRoute, initRouteSave } from './modules/map';
 import '@babel/polyfill';
 
 const orig = document.getElementById('orig');
@@ -12,8 +12,8 @@ initMap();
 autocomplete(orig);
 autocomplete(dest);
 
+setTimeout(initRouteSave, 1000);
 // Save route
 heartSave.addEventListener('click', (e) => saveRoute(e));
-
 // Delete saved route
 heartUnsave.addEventListener('click', (e) => deleteRoute(e));

@@ -14,6 +14,8 @@ const via = document.getElementById('via').value;
 let waypoint = document.getElementById('waypoint');
 const findRoutesBtn = document.getElementById('findRoutesBtn');
 const savedRouteId = document.getElementById('saved-route-id');
+const heartSaveBtn = document.getElementById('heart-save-btn');
+const heartUnsaveBtn = document.getElementById('heart-unsave-btn');
 
 export function initMap() {
   // Initilise map to Melbourne location
@@ -49,11 +51,14 @@ export function autocomplete(textInput) {
   });
 }
 
-export async function saveRoute(e) {
-  e.preventDefault();
+export async function initRouteSave() {
+  if (!orig || !dest || !userId) {
+    heartSaveBtn.style.display = 'block';
+    return;
+  }
 
   const res = await axios
-    .post('/save', {
+    .post('/route/find', {
       userId,
       orig,
       dest,
@@ -63,15 +68,54 @@ export async function saveRoute(e) {
 
   if (res.status === 200) {
     savedRouteId.value = res.data;
-    document.getElementById('heart-save-btn').style.display = 'none';
-    document.getElementById('heart-unsave-btn').style.display = 'block';
+    heartUnsaveBtn.style.display = 'block';
+    return;
+  }
+
+  heartSaveBtn.style.display = 'block';
+}
+
+export async function saveRoute(e) {
+  e.preventDefault();
+
+  // If user hasn't logged in, redirect to login page
+  if (!userId) window.location.replace('/login');
+
+  const res = await axios
+    .post('/route/save', {
+      userId,
+      orig,
+      dest,
+      waypoint: waypoint.value,
+    })
+    .catch((e) => console.log(e));
+
+  if (res.status === 200) {
+    savedRouteId.value = res.data;
+    heartSaveBtn.style.display = 'none';
+    heartUnsaveBtn.style.display = 'block';
   }
 }
 
-export function deleteRoute(e) {
+export async function deleteRoute(e) {
   e.preventDefault();
 
-  if (savedRouteId.value) console.log(savedRouteId.value);
+  if (savedRouteId.value === '') {
+    console.log('Cannot find route id');
+    return;
+  }
+
+  const res = await axios
+    .post('/route/delete', {
+      routeId: savedRouteId.value,
+    })
+    .catch((e) => console.log(e));
+
+  if (res.status === 200) {
+    savedRouteId.value = '';
+    heartUnsaveBtn.style.display = 'none';
+    heartSaveBtn.style.display = 'block';
+  }
 }
 
 function drawRoute() {
