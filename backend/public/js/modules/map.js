@@ -1,6 +1,5 @@
 import { RouteBoxer } from './RouteBoxer';
-import { findPlaceFromText } from '@googlemaps/google-maps-services-js/dist/places/findplacefromtext';
-import { AddressType } from '@googlemaps/google-maps-services-js';
+import axios from 'axios';
 
 let map;
 let directionsService;
@@ -14,6 +13,7 @@ const dest = document.getElementById('dest').value;
 const via = document.getElementById('via').value;
 let waypoint = document.getElementById('waypoint');
 const findRoutesBtn = document.getElementById('findRoutesBtn');
+const savedRouteId = document.getElementById('saved-route-id');
 
 export function initMap() {
   // Initilise map to Melbourne location
@@ -47,6 +47,31 @@ export function autocomplete(textInput) {
   textInput.addEventListener('keydown', (e) => {
     if (e.keyCode === 13) e.preventDefault();
   });
+}
+
+export async function saveRoute(e) {
+  e.preventDefault();
+
+  const res = await axios
+    .post('/save', {
+      userId,
+      orig,
+      dest,
+      waypoint: waypoint.value,
+    })
+    .catch((e) => console.log(e));
+
+  if (res.status === 200) {
+    savedRouteId.value = res.data;
+    document.getElementById('heart-save-btn').style.display = 'none';
+    document.getElementById('heart-unsave-btn').style.display = 'block';
+  }
+}
+
+export function deleteRoute(e) {
+  e.preventDefault();
+
+  if (savedRouteId.value) console.log(savedRouteId.value);
 }
 
 function drawRoute() {

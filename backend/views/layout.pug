@@ -19,7 +19,8 @@ html
             a.nav-item.nav-link(href='/favourites') Favourites
 
           .navbar-nav.ml-auto
-            .navbar-text.mx-2#user
+            //- input(type="hidden" id="userId")
+            .navbar-text.mx-2#username
             a.btn.btn-outline-success#login-btn(href="/login") Login
             button.btn.btn-outline-success#logout-btn(onclick="logout()" type="button") Logout
 
