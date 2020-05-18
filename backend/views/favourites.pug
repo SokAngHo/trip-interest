@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  input(type="hidden" id="origInput" value="")
+  input(type="hidden" id="destInput" value="")
+  input(type="hidden" id="stopoverInput" value="")
+  .container-fluid.m-3
+    .row
+      .col
+        div(style="height: 800px").card.overflow-auto
+          .list-group
+            each route in savedRoutes
+              button(type='button' onclick=`showRoute('${route.id}')`).list-group-item.list-group-item-action
+                div Start: #{route.orig}
+                if route.waypoint
+                  div Stopover: #{route.waypoint}
+                div End: #{route.dest}
+
+
+      .col-8
+        #map-canvas
+          #map
+
+block scripts
+  //- Google maps
+  script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&libraries=places`)
+  script(src='/dist/Fav.bundle.js')
+  script.
+    const savedRoutes = JSON.parse('!{JSON.stringify(savedRoutes)}');

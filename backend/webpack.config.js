@@ -20,6 +20,7 @@ const config = {
     App: './public/js/index.js',
     Login: './public/js/login.js',
     Auth: './public/js/auth.js',
+    Fav: './public/js/favourites.js',
   },
   watchOptions: {
     ignored: '/node_modules/',

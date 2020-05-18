@@ -1,5 +1,5 @@
-import { initMap, autocomplete, saveRoute, deleteRoute, initRouteSave } from './modules/map';
-import '@babel/polyfill';
+import { initMap, autocomplete } from './modules/map';
+import { saveRoute, deleteRoute, initRouteSave } from './modules/routes';
 
 const orig = document.getElementById('orig');
 const dest = document.getElementById('dest');

@@ -46,7 +46,7 @@ exports.homePage = async (req, res) => {
 //   }
 // };
 
-getPlaceDetails = async (placeId) => {
+exports.getPlaceDetails = async (placeId) => {
   try {
     const placeDetails = await client.placeDetails({
       params: {
