@@ -69,7 +69,7 @@ function drawRoute() {
       if (status === 'OK') {
         directionsRenderer.setDirections(res);
         const route = res.routes[0];
-        initRouteSave();
+        setTimeout(initRouteSave, 1000);
         displayRouteInfo(route);
 
         // Don't box routes for route that is more than 300 km for budget purposes
