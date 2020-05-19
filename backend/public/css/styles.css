@@ -17,8 +17,33 @@
   visibility: hidden;
 }
 
-#user,
+#username,
 #login-btn,
 #logout-btn {
   display: none;
+}
+
+.heart-btn {
+  outline: blue;
+}
+
+.heart-btn:hover {
+  color: red;
+  outline: none;
+}
+
+.heart-btn:focus,
+.heart-btn:active {
+  outline: none;
+  box-shadow: none;
+}
+
+#heart-unsave-btn,
+#heart-save-btn {
+  display: none;
+  display: none;
+}
+
+#heart-unsave {
+  color: red;
 }

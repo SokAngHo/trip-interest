@@ -5,28 +5,36 @@ block content
     .card.my-3#selected-route-card
       .card-body#selected-route
         .row
-          .col
-            .row.justify-content-around#route-info
-          .col-2#route-share
-              //- https://publish.twitter.com/
-              if(orig && dest)
-                a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text=shareMessage data-url=fullUrl data-hashtags="tripinterest" data-size="large") Tweet
+          .col.d-flex.align-items-center
+            .row.justify-content-around.flex-fill#route-info
+          .col-2.d-flex.align-items-center#route-share
+            input(type="hidden" id="saved-route-id" value="")
+            button.btn.heart-btn#heart-save-btn
+              i.far.fa-heart.fa-lg#heart-save
+            button.btn.heart-btn#heart-unsave-btn
+              i.fas.fa-heart.fa-lg#heart-unsave
+            //- https://publish.twitter.com/
+            if(orig && dest)
+              a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text=shareMessage data-url=fullUrl data-hashtags="tripinterest" data-size="large") Tweet
 
     .row(style="height: 800px")
       .col
         form(action="/" method="GET" id="mapForm")
           .form-group
             lablel(for="orig-text-input") From
-            input.form-control(type="text" id="orig" name="orig" value=orig)
+            input.form-control(type="text" id="orig-input" value=origAddress)
+            input(type="hidden" id="orig" name="orig" value=orig)
 
           .form-group
             label(for="dest-text-input") To
-            input.form-control(type="text" id="dest" name="dest" value=dest)
+            input.form-control(type="text" id="dest-input" value=destAddress)
+            input(type="hidden" id="dest" name="dest" value=dest)
 
           .form-group
             label(for="via") Via
             input.form-control(type="text" id="via" name="via" value=via)
             input(type="hidden" id="waypoint" name="waypoint" value=waypoint)
+            input(type="hidden" id="waypointAddress" value=waypointAddress)
 
           button.btn.btn-primary(type="button" id="findRoutesBtn") Find routes
 
@@ -37,4 +45,6 @@ block content
 block scripts
   //- Google maps
   script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&libraries=places`)
+  //- https://publish.twitter.com/#
+  script(async src="https://platform.twitter.com/widgets.js" charset="utf-8")
   script(src='/dist/App.bundle.js')
