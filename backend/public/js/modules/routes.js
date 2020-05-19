@@ -40,7 +40,10 @@ export async function saveRoute(e) {
   e.preventDefault();
 
   // If user hasn't logged in, redirect to login page
-  if (userId == null) window.location.replace('/login');
+  if (userId == null) {
+    window.location.replace('/login');
+    return;
+  }
 
   const res = await axios
     .post('/routes/save', {
