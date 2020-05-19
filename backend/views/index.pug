@@ -22,16 +22,19 @@ block content
         form(action="/" method="GET" id="mapForm")
           .form-group
             lablel(for="orig-text-input") From
-            input.form-control(type="text" id="orig" name="orig" value=orig)
+            input.form-control(type="text" id="orig-input" value=origAddress)
+            input(type="hidden" id="orig" name="orig" value=orig)
 
           .form-group
             label(for="dest-text-input") To
-            input.form-control(type="text" id="dest" name="dest" value=dest)
+            input.form-control(type="text" id="dest-input" value=destAddress)
+            input(type="hidden" id="dest" name="dest" value=dest)
 
           .form-group
             label(for="via") Via
             input.form-control(type="text" id="via" name="via" value=via)
             input(type="hidden" id="waypoint" name="waypoint" value=waypoint)
+            input(type="hidden" id="waypointAddress" value=waypointAddress)
 
           button.btn.btn-primary(type="button" id="findRoutesBtn") Find routes
 
@@ -42,4 +45,6 @@ block content
 block scripts
   //- Google maps
   script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&libraries=places`)
+  //- https://publish.twitter.com/#
+  script(async src="https://platform.twitter.com/widgets.js" charset="utf-8")
   script(src='/dist/App.bundle.js')

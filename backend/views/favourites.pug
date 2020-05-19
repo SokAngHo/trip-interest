@@ -10,11 +10,15 @@ block content
         div(style="height: 800px").card.overflow-auto
           .list-group
             each route in savedRoutes
-              button(type='button' onclick=`showRoute('${route.id}')`).list-group-item.list-group-item-action
-                div Start: #{route.orig}
-                if route.waypoint
-                  div Stopover: #{route.waypoint}
-                div End: #{route.dest}
+              div(id=route.id onclick=`showRoute('${route.id}')`).list-group-item.list-group-item-action.d-flex.flex-row.justify-content-between
+                div
+                  div Start: #{route.origAddress}
+                  if route.waypointAddress
+                    div Stopover: #{route.waypointAddress}
+                  div End: #{route.destAddress}
+                div
+                  button.btn(id=`${route.id}-heart` onclick=`deleteRoute('${route.id}')`)
+                    i.fas.fa-heart.fa-lg#heart-unsave
 
 
       .col-8

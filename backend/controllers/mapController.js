@@ -9,15 +9,21 @@ exports.homePage = async (req, res) => {
   const via = req.query.via;
   const waypoint = req.query.waypoint;
 
+  const origAddress = orig && (await this.getPlaceDetails(orig)).formatted_address;
+  const destAddress = dest && (await this.getPlaceDetails(dest)).formatted_address;
+
+  // Default message for social media sharing
   let shareMessage;
-  if (orig && dest) shareMessage = `${orig} to ${dest}`;
+  if (orig && dest) shareMessage = `${origAddress} to ${destAddress}`;
   if (via) shareMessage += ` via ${via}`;
 
   res.render('index', {
     shareMessage,
     fullUrl,
     orig,
+    origAddress,
     dest,
+    destAddress,
     via,
     waypoint,
   });

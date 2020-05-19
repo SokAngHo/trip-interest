@@ -23,15 +23,18 @@ exports.findSavedRoute = async (req, res) => {
 };
 
 exports.saveRoute = async (req, res) => {
-  const { userId, orig, dest, waypoint } = req.body;
+  const { userId, orig, dest, origAddress, destAddress, waypoint, waypointAddress } = req.body;
   const docRef = firestore.collection('saved-routes').doc();
 
   const data = {
     id: docRef.id,
     userId,
     orig,
+    origAddress,
     dest,
+    destAddress,
     waypoint,
+    waypointAddress,
     timestamp: FieldValue.serverTimestamp(),
   };
 

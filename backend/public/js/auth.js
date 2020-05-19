@@ -1,7 +1,7 @@
 import { auth } from './modules/firebase';
 import '@babel/polyfill';
 
-const favLink = document.getElementById('fav-link');
+window.userId = null;
 
 function checkAuth() {
   const username = document.getElementById('username');
@@ -20,10 +20,11 @@ function checkAuth() {
       loginBtn.style.display = 'none';
       favLink.setAttribute('href', `/favourites/${user.uid}`);
     } else {
+      window.userId = null;
       username.style.display = 'none';
       logoutBtn.style.display = 'none';
       loginBtn.style.display = 'block';
-      favLink.classList.add('disabled');
+      favLink.setAttribute('href', '/favourites');
       // Redirect to login page unless user is on login page or homepage
       if (window.location.pathname !== '/login' && window.location.pathname !== '/') {
         window.location.replace('/login');
@@ -33,14 +34,11 @@ function checkAuth() {
 }
 checkAuth();
 
-window.logout = function () {
-  auth.signOut();
+window.logout = async () => {
+  try {
+    await auth.signOut();
+    window.userId = null;
+  } catch (e) {
+    console.log(e);
+  }
 };
-
-// document.getElementById('fav-link').addEventListener('click', async function () {
-//   await axios.get('/favourites', {
-//     headers: {
-//       userId: window.userId,
-//     },
-//   });
-// });

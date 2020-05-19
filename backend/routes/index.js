@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get('/', mapController.homePage);
 router.get('/login', loginController.index);
+router.get('/favourites', favouritesController.index);
 router.get('/favourites/:userId', favouritesController.index);
 
 router.post('/routes/find', firestoreController.findSavedRoute);
