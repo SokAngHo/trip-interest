@@ -1049,8 +1049,16 @@ function _saveRoute() {
           case 0:
             e.preventDefault(); // If user hasn't logged in, redirect to login page
 
-            if (userId == null) window.location.replace('/login');
-            _context2.next = 4;
+            if (!(userId == null)) {
+              _context2.next = 4;
+              break;
+            }
+
+            window.location.replace('/login');
+            return _context2.abrupt("return");
+
+          case 4:
+            _context2.next = 6;
             return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/routes/save', {
               userId: userId,
               orig: orig,
@@ -1063,7 +1071,7 @@ function _saveRoute() {
               return console.log(e);
             });
 
-          case 4:
+          case 6:
             res = _context2.sent;
 
             if (res.status === 200) {
@@ -1072,7 +1080,7 @@ function _saveRoute() {
               heartUnsaveBtn.style.display = 'block';
             }
 
-          case 6:
+          case 8:
           case "end":
             return _context2.stop();
         }
