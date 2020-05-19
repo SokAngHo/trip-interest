@@ -6,8 +6,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "npm run build && node ./index.js",
-    "build": "npm install",
+    "start": "node ./index.js",
     "watch": "nodemon ./index.js --ignore public/",
     "dev": "concurrently \"npm run watch\" \"npm run assets\" --names \"backend,frontend\" --prefix name",
     "assets": "webpack -w --display-max-modules 0"
