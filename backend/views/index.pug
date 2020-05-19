@@ -12,6 +12,16 @@ block content
               if(orig && dest)
                 a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text=shareMessage data-url=fullUrl data-hashtags="tripinterest" data-size="large") Tweet
 
+  .container-fluid
+    .card.my-3#selected-route-card
+      .card-body#selected-route
+        .row
+          .col
+            .row.justify-content-around#route-info
+          .col-2#route-share
+            if(orig && dest)
+              a(class="fb-share-button" data-href="http://localhost:8000/" data-layout="button_count" data-text=shareMessage data-url=fullUrl data-size="large" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8000%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore") Share
+
     .row(style="height: 800px")
       .col
         form(action="/" method="GET" id="mapForm")
@@ -38,3 +48,5 @@ block scripts
   //- Google maps
   script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&libraries=places`)
   script(src='/dist/App.bundle.js')
+  //- Facebook Sharing
+  script(async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0")
