@@ -20,6 +20,12 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// pass variables to our templates + all requests
+app.use((req, res, next) => {
+  res.locals.currentPath = req.path;
+  next();
+});
+
 // Routes handling
 app.use('/', routes);
 

@@ -1,6 +1,5 @@
 import { RouteBoxer } from './RouteBoxer';
-import { findPlaceFromText } from '@googlemaps/google-maps-services-js/dist/places/findplacefromtext';
-import { AddressType } from '@googlemaps/google-maps-services-js';
+import { initRouteSave } from './routes';
 
 let map;
 let directionsService;
@@ -35,15 +34,16 @@ export function initMap() {
 }
 
 // Google Map places auto completion on input
-export function autocomplete(textInput) {
+export function autocomplete(textInput, placeIdInput) {
   if (!textInput) return;
 
   const dropdown = new google.maps.places.Autocomplete(textInput);
   dropdown.addListener('place_changed', () => {
     const place = dropdown.getPlace();
-    // placeIdInput.value = place.place_id;
+    placeIdInput.value = place.place_id;
   });
 
+  // Prevent form from submitting with enter key
   textInput.addEventListener('keydown', (e) => {
     if (e.keyCode === 13) e.preventDefault();
   });
@@ -60,8 +60,8 @@ function drawRoute() {
 
   directionsService.route(
     {
-      origin: orig,
-      destination: dest,
+      origin: { placeId: orig },
+      destination: { placeId: dest },
       waypoints: waypointsReq,
       travelMode: 'DRIVING',
     },
@@ -69,7 +69,7 @@ function drawRoute() {
       if (status === 'OK') {
         directionsRenderer.setDirections(res);
         const route = res.routes[0];
-        console.log(route);
+        setTimeout(initRouteSave, 1000);
         displayRouteInfo(route);
 
         // Don't box routes for route that is more than 300 km for budget purposes
@@ -101,40 +101,42 @@ function displayRouteInfo(route) {
   routeInfo.innerHTML = '';
 
   const arrow1 = document.createElement('div');
-  arrow1.classList.add('col-auto');
+  arrow1.classList.add('col-auto', 'd-flex', 'align-items-center');
   const arrowIcon = document.createElement('i');
   arrowIcon.classList.add('fas', 'fa-long-arrow-alt-right');
   arrow1.appendChild(arrowIcon);
 
   const arrow2 = document.createElement('div');
-  arrow2.classList.add('col-auto');
+  arrow2.classList.add('col-auto', 'd-flex', 'align-items-center');
   const arrowIcon2 = document.createElement('i');
   arrowIcon2.classList.add('fas', 'fa-long-arrow-alt-right');
   arrow2.appendChild(arrowIcon2);
 
   const startAddress = document.createElement('div');
-  startAddress.classList.add('col');
+  startAddress.classList.add('col', 'd-flex', 'align-items-center');
   startAddress.innerText = route.legs[0].start_address;
 
   let stopoverAddress;
 
   const endAddress = document.createElement('div');
-  endAddress.classList.add('col');
+  endAddress.classList.add('col', 'd-flex', 'align-items-center');
   endAddress.innerText = route.legs[0].end_address;
 
   const distance = document.createElement('div');
-  distance.classList.add('col-auto');
+  distance.classList.add('col-auto', 'd-flex', 'align-items-center');
   distance.innerText = route.legs[0].distance.text;
 
   const duration = document.createElement('div');
-  duration.classList.add('col-auto');
+  duration.classList.add('col-auto', 'd-flex', 'align-items-center');
   duration.innerText = route.legs[0].duration.text;
+  document.getElementById('waypointAddress').value = '';
 
   // When there is stopover
   if (route.legs.length > 1) {
     stopoverAddress = document.createElement('div');
-    stopoverAddress.classList.add('col');
+    stopoverAddress.classList.add('col', 'd-flex', 'align-items-center');
     stopoverAddress.innerText = route.legs[0].end_address;
+    document.getElementById('waypointAddress').value = route.legs[0].end_address;
 
     endAddress.innerText = route.legs[1].end_address;
 
@@ -166,7 +168,6 @@ function findPlaces() {
 
     placesService.nearbySearch(request, function (res, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        console.log(res);
         for (let i = 0; i < res.length; i++) {
           createPlaceMarker(res[i]);
         }
@@ -191,6 +192,7 @@ function createPlaceMarker(place) {
 
   const placeReq = {
     placeId: place.place_id,
+    name: place.name,
   };
 
   google.maps.event.addListener(marker, 'mouseover', function () {
@@ -207,6 +209,8 @@ function createPlaceMarker(place) {
 }
 
 function selectAPlace(place) {
+  const waypointAddress = document.getElementById('waypointAddress');
+  waypointAddress.value = place.name;
   addWaypoints(place);
 }
 
@@ -231,6 +235,14 @@ function getPlaceNameForMarker(place, marker) {
 }
 
 function findRoutes() {
+  const origAddress = document.getElementById('orig-input');
+  const destAddress = document.getElementById('dest-input');
+
+  if (origAddress.value === '' || destAddress.value === '') {
+    window.alert('Please enter origin and destination.');
+    return;
+  }
+
   waypoint.value = '';
   document.getElementById('mapForm').submit();
 }
