@@ -26,7 +26,7 @@ export function initMap() {
   directionsRenderer.setMap(map);
   routeBoxer = new RouteBoxer();
   infoWindow = new google.maps.InfoWindow();
-  findRoutesBtn.addEventListener('click', findRoutes);
+  // findRoutesBtn.addEventListener('click', findRoutes);
 
   // Draw routes on the map
   if (orig && dest) drawRoute();
@@ -245,7 +245,7 @@ function getPlaceNameForMarker(place, marker) {
   });
 }
 
-function findRoutes() {
+window.findRoutes = () => {
   const origAddress = document.getElementById('orig-input');
   const destAddress = document.getElementById('dest-input');
 
@@ -256,4 +256,4 @@ function findRoutes() {
 
   waypoint.value = '';
   document.getElementById('mapForm').submit();
-}
+};

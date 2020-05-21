@@ -91,27 +91,15 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _modules_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-
 
 var origInput = document.getElementById('orig-input');
 var destInput = document.getElementById('dest-input');
 var orig = document.getElementById('orig');
 var dest = document.getElementById('dest');
-var heartSave = document.getElementById('heart-save');
-var heartUnsave = document.getElementById('heart-unsave');
 Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["initMap"])(); // Setup places auto completion on origin and destination inputs.
 
 Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(origInput, orig);
-Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(destInput, dest); // Save route
-
-heartSave.addEventListener('click', function (e) {
-  return Object(_modules_routes__WEBPACK_IMPORTED_MODULE_1__["saveRoute"])(e);
-}); // Delete saved route
-
-heartUnsave.addEventListener('click', function (e) {
-  return Object(_modules_routes__WEBPACK_IMPORTED_MODULE_1__["deleteRoute"])(e);
-});
+Object(_modules_map__WEBPACK_IMPORTED_MODULE_0__["autocomplete"])(destInput, dest);
 
 /***/ }),
 /* 1 */
@@ -151,8 +139,8 @@ function initMap() {
   placesService = new google.maps.places.PlacesService(map);
   directionsRenderer.setMap(map);
   routeBoxer = new _RouteBoxer__WEBPACK_IMPORTED_MODULE_0__["RouteBoxer"]();
-  infoWindow = new google.maps.InfoWindow();
-  findRoutesBtn.addEventListener('click', findRoutes); // Draw routes on the map
+  infoWindow = new google.maps.InfoWindow(); // findRoutesBtn.addEventListener('click', findRoutes);
+  // Draw routes on the map
 
   if (orig && dest) drawRoute();
   if (orig && dest && via) setTimeout(findPlaces, 1000);
@@ -357,7 +345,7 @@ function getPlaceNameForMarker(place, marker) {
   });
 }
 
-function findRoutes() {
+window.findRoutes = function () {
   var origAddress = document.getElementById('orig-input');
   var destAddress = document.getElementById('dest-input');
 
@@ -368,7 +356,7 @@ function findRoutes() {
 
   waypoint.value = '';
   document.getElementById('mapForm').submit();
-}
+};
 
 /***/ }),
 /* 2 */
@@ -1035,29 +1023,27 @@ function _initRouteSave() {
   return _initRouteSave.apply(this, arguments);
 }
 
-function saveRoute(_x) {
+function saveRoute() {
   return _saveRoute.apply(this, arguments);
 }
 
 function _saveRoute() {
-  _saveRoute = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
+  _saveRoute = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
     var res;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            e.preventDefault(); // If user hasn't logged in, redirect to login page
-
             if (!(userId == null)) {
-              _context2.next = 4;
+              _context2.next = 3;
               break;
             }
 
             window.location.replace('/login');
             return _context2.abrupt("return");
 
-          case 4:
-            _context2.next = 6;
+          case 3:
+            _context2.next = 5;
             return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/routes/save', {
               userId: userId,
               orig: orig,
@@ -1070,7 +1056,7 @@ function _saveRoute() {
               return console.log(e);
             });
 
-          case 6:
+          case 5:
             res = _context2.sent;
 
             if (res.status === 200) {
@@ -1079,7 +1065,7 @@ function _saveRoute() {
               heartUnsaveBtn.style.display = 'block';
             }
 
-          case 8:
+          case 7:
           case "end":
             return _context2.stop();
         }
@@ -1089,36 +1075,34 @@ function _saveRoute() {
   return _saveRoute.apply(this, arguments);
 }
 
-function deleteRoute(_x2) {
+function deleteRoute() {
   return _deleteRoute.apply(this, arguments);
 }
 
 function _deleteRoute() {
-  _deleteRoute = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(e) {
+  _deleteRoute = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
     var res;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            e.preventDefault();
-
             if (!(savedRouteId.value === '')) {
-              _context3.next = 4;
+              _context3.next = 3;
               break;
             }
 
             console.log('Cannot find route id');
             return _context3.abrupt("return");
 
-          case 4:
-            _context3.next = 6;
+          case 3:
+            _context3.next = 5;
             return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/routes/delete', {
               routeId: savedRouteId.value
             })["catch"](function (e) {
               return console.log(e);
             });
 
-          case 6:
+          case 5:
             res = _context3.sent;
 
             if (res.status === 200) {
@@ -1127,7 +1111,7 @@ function _deleteRoute() {
               heartSaveBtn.style.display = 'block';
             }
 
-          case 8:
+          case 7:
           case "end":
             return _context3.stop();
         }
@@ -1136,6 +1120,9 @@ function _deleteRoute() {
   }));
   return _deleteRoute.apply(this, arguments);
 }
+
+window.saveRoute = saveRoute;
+window.deleteRoute = deleteRoute;
 
 /***/ }),
 /* 4 */

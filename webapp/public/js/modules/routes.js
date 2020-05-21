@@ -36,9 +36,7 @@ export async function initRouteSave() {
   heartSaveBtn.style.display = 'block';
 }
 
-export async function saveRoute(e) {
-  e.preventDefault();
-
+export async function saveRoute() {
   // If user hasn't logged in, redirect to login page
   if (userId == null) {
     window.location.replace('/login');
@@ -64,9 +62,7 @@ export async function saveRoute(e) {
   }
 }
 
-export async function deleteRoute(e) {
-  e.preventDefault();
-
+export async function deleteRoute() {
   if (savedRouteId.value === '') {
     console.log('Cannot find route id');
     return;
@@ -84,3 +80,6 @@ export async function deleteRoute(e) {
     heartSaveBtn.style.display = 'block';
   }
 }
+
+window.saveRoute = saveRoute;
+window.deleteRoute = deleteRoute;
