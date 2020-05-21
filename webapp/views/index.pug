@@ -7,7 +7,7 @@ block content
         .row
           .col.d-flex.align-items-center
             .row.justify-content-around.flex-fill#route-info
-          .col-2.d-flex.align-items-center#route-share
+          .col-2.d-flex.flex-wrap.align-items-center.justify-content-around#route-share
             input(type="hidden" id="saved-route-id" value="")
             button.btn.heart-btn#heart-save-btn
               i.far.fa-heart.fa-lg#heart-save
@@ -15,7 +15,10 @@ block content
               i.fas.fa-heart.fa-lg#heart-unsave
             //- https://publish.twitter.com/
             if(orig && dest)
-              a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text=shareMessage data-url=fullUrl data-hashtags="tripinterest" data-size="large") Tweet
+              div.d-flex.align-items-center
+                a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text=shareMessage data-url=fullUrl data-hashtags="tripinterest" data-size="large") Tweet
+              .fb-share-button(data-href=fullUrl data-layout="button" data-size="large")
+                a.fb-xfbml-parse-ignore(target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse") Share
 
     .row(style="height: 800px")
       .col
@@ -45,6 +48,9 @@ block content
 block scripts
   //- Google maps
   script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&libraries=places`)
+  script(src='/dist/App.bundle.js')
+  //- Facebook Sharing
+  script(async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0")
   //- https://publish.twitter.com/#
-  script(async src="https://platform.twitter.com/widgets.js" charset="utf-8")
+  script(async src="https://platform.twitter.com/widgets.js" charset="utf-8" crossorigin="anonymous")
   script(src='/dist/App.bundle.js')
