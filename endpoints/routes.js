@@ -3,8 +3,8 @@ const { Client, Status } = require('@googlemaps/google-maps-services-js');
 const router = express.Router();
 const client = new Client({});
 
-router.get('/api/place', async (req, res) => {
-  const { placeId, apiKey } = req.params.body;
+router.post('/api/place', async (req, res) => {
+  const { placeId, apiKey } = req.body;
 
   try {
     const placeDetails = await client.placeDetails({
@@ -25,7 +25,7 @@ router.get('/api/place', async (req, res) => {
   }
 });
 
-router.get('/api/directions', async (req, res) => {
+router.post('/api/directions', async (req, res) => {
   const { origin, destination, waypoints, mode, apiKey } = req.body;
 
   try {

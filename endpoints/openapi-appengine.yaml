@@ -14,24 +14,6 @@ schemes:
   - 'https'
 paths:
 paths:
-  "/echo":
-    post:
-      description: "Echo back a given message."
-      operationId: "echo"
-      produces:
-      - "application/json"
-      responses:
-        200:
-          description: "Echo"
-          schema:
-            $ref: "#/definitions/echoMessage"
-      parameters:
-      - description: "Message to echo"
-        in: body
-        name: message
-        required: true
-        schema:
-          $ref: "#/definitions/echoMessage"
   '/api/place':
     post:
       description: 'Returns information about a place.'
@@ -48,14 +30,42 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/placeId'
+  '/api/directions':
+    post:
+      description: 'Returns directions between places.'
+      operationId: 'direction'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: 'Directions between places.'
+      parameters:
+        - description: 'Direction Request'
+          in: body
+          name: directionReq
+          required: true
+          schema:
+            $ref: '#/definitions/directionReq'
 definitions:
-  echoMessage:
-    type: "object"
-    properties:
-      message:
-        type: "string"
   placeId:
     type: 'object'
     properties:
+      apiKey:
+        type: 'string'
       placeId:
         type: 'string'
+  directionReq:
+    type: 'object'
+    properties:
+      apiKey:
+        type: 'string'
+      origin:
+        type: 'string'
+      destination:
+        type: 'string'
+      mode:
+        type: 'string'
+      waypoints:
+        type: 'array'
+
+
