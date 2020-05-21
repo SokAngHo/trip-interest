@@ -9,9 +9,9 @@ block content
             .row.justify-content-around.flex-fill#route-info
           .col-2.d-flex.flex-wrap.align-items-center.justify-content-around#route-share
             input(type="hidden" id="saved-route-id" value="")
-            button.btn.heart-btn#heart-save-btn
+            button.btn.heart-btn#heart-save-btn(type="button" onclick="saveRoute()")
               i.far.fa-heart.fa-lg#heart-save
-            button.btn.heart-btn#heart-unsave-btn
+            button.btn.heart-btn#heart-unsave-btn(type="button" onclick="deleteRoute()")
               i.fas.fa-heart.fa-lg#heart-unsave
             //- Reference
             //- Twitter, "Twitter Publish", Publish.twitter.com, 2020. [Online].
@@ -41,7 +41,7 @@ block content
             input(type="hidden" id="waypoint" name="waypoint" value=waypoint)
             input(type="hidden" id="waypointAddress" value=waypointAddress)
 
-          button.btn.btn-primary(type="button" id="findRoutesBtn") Find routes
+          button.btn.btn-primary(type="button" id="findRoutesBtn" onclick="findRoutes()") Find routes
 
       .col-8
         #map-canvas
