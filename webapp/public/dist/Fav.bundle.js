@@ -1422,10 +1422,7 @@ function drawRoute(route) {
   });
 }
 
-initMap(); // Delete saved route
-// for (i = 0; i < heartUnsave.length; i++) {
-//   heartUnsave[i].addEventListener('click', deleteRoute(heartUnsave.));
-// }
+initMap();
 
 /***/ }),
 

@@ -156,7 +156,12 @@ function initMap() {
 
   if (orig && dest) drawRoute();
   if (orig && dest && via) setTimeout(findPlaces, 1000);
-} // Google Map places auto completion on input
+}
+/* Reference:
+wesbos, "wesbos/Learn-Node", GitHub, 2018. [Online].
+Available: https://github.com/wesbos/Learn-Node.
+*/
+// Google Map places auto completion on input
 
 function autocomplete(textInput, placeIdInput) {
   if (!textInput) return;
@@ -170,6 +175,10 @@ function autocomplete(textInput, placeIdInput) {
     if (e.keyCode === 13) e.preventDefault();
   });
 }
+/* Reference:
+geocodezip, "How to to Get Places (e.g Gas Stations) along Route Between Origin and Destination in Google Maps API", Stack Overflow, 2016. [Online].
+Available: https://stackoverflow.com/questions/17283826/how-to-to-get-places-e-g-gas-stations-along-route-between-origin-and-destinati.
+*/
 
 function drawRoute() {
   var waypointsReq = [];
@@ -270,6 +279,11 @@ function displayRouteInfo(route) {
   routeInfo.appendChild(distance);
   routeInfo.appendChild(duration);
 }
+/* Reference:
+geocodezip, "How to to Get Places (e.g Gas Stations) along Route Between Origin and Destination in Google Maps API", Stack Overflow, 2016. [Online].
+Available: https://stackoverflow.com/questions/17283826/how-to-to-get-places-e-g-gas-stations-along-route-between-origin-and-destinati.
+*/
+
 
 function findPlaces() {
   if (!routeBoxes) return;
@@ -364,8 +378,9 @@ function findRoutes() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RouteBoxer", function() { return RouteBoxer; });
 /**
- * This file is retreived from
- * https://github.com/googlemaps/v3-utility-library/blob/master/archive/routeboxer/src/RouteBoxer.js
+ * Reference:
+ * T. Mitchell, "googlemaps/v3-utility-library", GitHub, 2019. [Online].
+ * Available: https://github.com/googlemaps/v3-utility-library/blob/master/archive/routeboxer/src/RouteBoxer.js.
  *
  * @name RouteBoxer
  * @version 1.0
