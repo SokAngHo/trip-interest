@@ -209,7 +209,7 @@ function drawRoute() {
       var path = route.overview_path;
       var distance = 0.5; // radius around route is 500 m
 
-      routeBoxes = routeBoxer.box(path, distance); // drawBoxes(routeBoxes);
+      routeBoxes = routeBoxer.box(path, distance);
     } else {
       console.log(status);
     }
@@ -354,22 +354,6 @@ function findRoutes() {
 
   waypoint.value = '';
   document.getElementById('mapForm').submit();
-} // Utility function to draw route boxes for debugging
-
-
-function drawBoxes(boxes) {
-  var boxpolys = new Array(boxes.length);
-
-  for (var i = 0; i < boxes.length; i++) {
-    boxpolys[i] = new google.maps.Rectangle({
-      bounds: boxes[i],
-      fillOpacity: 0,
-      strokeOpacity: 1.0,
-      strokeColor: '#000000',
-      strokeWeight: 1,
-      map: map
-    });
-  }
 }
 
 /***/ }),
