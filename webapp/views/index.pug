@@ -13,7 +13,9 @@ block content
               i.far.fa-heart.fa-lg#heart-save
             button.btn.heart-btn#heart-unsave-btn
               i.fas.fa-heart.fa-lg#heart-unsave
-            //- https://publish.twitter.com/
+            //- Reference
+            //- Twitter, "Twitter Publish", Publish.twitter.com, 2020. [Online].
+            //- Available: https://publish.twitter.com/?buttonType=TweetButton&widget=Button.
             if(orig && dest)
               div.d-flex.align-items-center
                 a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text=shareMessage data-url=fullUrl data-hashtags="tripinterest" data-size="large") Tweet
@@ -46,11 +48,15 @@ block content
           #map
 
 block scripts
-  //- Google maps
+  //- Reference:
+  //- Google, "Overview  |  Maps JavaScript API  |  Google Developers", Google Developers, 2020. [Online].
+  //- Available: https://developers.google.com/maps/documentation/javascript/tutorial.
   script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&libraries=places`)
   script(src='/dist/App.bundle.js')
   //- Facebook Sharing
   script(async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0")
-  //- https://publish.twitter.com/#
+  //- Reference
+  //- Twitter, "Twitter Publish", Publish.twitter.com, 2020. [Online].
+  //- Available: https://publish.twitter.com/?buttonType=TweetButton&widget=Button.
   script(async src="https://platform.twitter.com/widgets.js" charset="utf-8" crossorigin="anonymous")
   script(src='/dist/App.bundle.js')

@@ -1,4 +1,7 @@
-// Adapted from wesbos NodeJS course
+/* Reference:
+wesbos, "wesbos/Learn-Node", GitHub, 2018. [Online].
+Available: https://github.com/wesbos/Learn-Node.
+*/
 
 const path = require('path');
 

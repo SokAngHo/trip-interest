@@ -33,6 +33,10 @@ export function initMap() {
   if (orig && dest && via) setTimeout(findPlaces, 1000);
 }
 
+/* Reference:
+wesbos, "wesbos/Learn-Node", GitHub, 2018. [Online].
+Available: https://github.com/wesbos/Learn-Node.
+*/
 // Google Map places auto completion on input
 export function autocomplete(textInput, placeIdInput) {
   if (!textInput) return;
@@ -49,6 +53,10 @@ export function autocomplete(textInput, placeIdInput) {
   });
 }
 
+/* Reference:
+geocodezip, "How to to Get Places (e.g Gas Stations) along Route Between Origin and Destination in Google Maps API", Stack Overflow, 2016. [Online].
+Available: https://stackoverflow.com/questions/17283826/how-to-to-get-places-e-g-gas-stations-along-route-between-origin-and-destinati.
+*/
 function drawRoute() {
   let waypointsReq = [];
 
@@ -156,6 +164,10 @@ function displayRouteInfo(route) {
   routeInfo.appendChild(duration);
 }
 
+/* Reference:
+geocodezip, "How to to Get Places (e.g Gas Stations) along Route Between Origin and Destination in Google Maps API", Stack Overflow, 2016. [Online].
+Available: https://stackoverflow.com/questions/17283826/how-to-to-get-places-e-g-gas-stations-along-route-between-origin-and-destinati.
+*/
 function findPlaces() {
   if (!routeBoxes) return;
 

@@ -1,3 +1,8 @@
+/* Reference:
+wesbos, "wesbos/Learn-Node", GitHub, 2018. [Online].
+Available: https://github.com/wesbos/Learn-Node.
+*/
+
 // import environmental variables from .env file
 require('dotenv').config({ path: './.env' });
 

@@ -2,7 +2,10 @@ const firebaseui = require('firebaseui');
 
 import { firebase, auth } from './modules/firebase';
 
-// https://github.com/firebase/firebaseui-web
+/* Reference:
+Firebase, "firebase/firebaseui-web", GitHub, 2020. [Online].
+Available: https://github.com/firebase/firebaseui-web.
+*/
 function initLoginUI() {
   const uiConfig = {
     signInSuccessUrl: '/',
