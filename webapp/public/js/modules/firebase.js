@@ -1,5 +1,3 @@
-//- https://github.com/firebase/firebaseui-web
-
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 

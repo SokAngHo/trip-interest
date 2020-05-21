@@ -5,7 +5,9 @@ html
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/styles.css')
     meta(name="viewport" content="width=device-width, initial-scale=1")
-    //- Fontawesome
+    //- Reference:
+    //- FontAwesome, "Font Awesome", Fontawesome.com, 2020. [Online].
+    //- Available: https://fontawesome.com/start.
     script(src="https://kit.fontawesome.com/265005b203.js" crossorigin="anonymous")
     block head
 
@@ -19,7 +21,6 @@ html
             a.nav-item.nav-link#fav-link(class=(currentPath.startsWith('/favourites') ? 'active' : '')) Favourites
 
           .navbar-nav.ml-auto
-            //- input(type="hidden" id="userId")
             .navbar-text.mx-2#username
             a.btn.btn-outline-primary#login-btn(href="/login") Login
             button.btn.btn-outline-primary#logout-btn(onclick="logout()" type="button") Logout

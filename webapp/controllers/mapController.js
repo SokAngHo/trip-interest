@@ -1,6 +1,4 @@
-const { Client, Status } = require('@googlemaps/google-maps-services-js');
-
-const client = new Client({});
+const axios = require('axios').default;
 
 exports.homePage = async (req, res) => {
   const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -29,44 +27,20 @@ exports.homePage = async (req, res) => {
   });
 };
 
-// getDirection = async (orig, dest, waypoints, mode) => {
-//   try {
-//     const direction = await client.directions({
-//       params: {
-//         origin: 'place_id:' + orig,
-//         destination: 'place_id:' + dest,
-//         waypoints,
-//         mode,
-//         key: process.env.GOOGLE_MAP_KEY,
-//       },
-//     });
-
-//     if (direction.data.status === Status.OK) {
-//       console.log(direction.data);
-//       return direction.data;
-//     } else {
-//       console.log(direction.data.error_message);
-//     }
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
-
 exports.getPlaceDetails = async (placeId) => {
-  try {
-    const placeDetails = await client.placeDetails({
-      params: {
-        place_id: placeId,
-        key: process.env.GOOGLE_MAP_KEY,
-      },
-    });
+  // Call google cloud endpoints
+  const res = await axios
+    .post(`${process.env.API_URL}/api/place`, {
+      placeId: placeId,
+      apiKey: process.env.GOOGLE_MAP_KEY,
+    })
+    .catch((e) => console.log(e));
 
-    if (placeDetails.data.status === Status.OK) {
-      return placeDetails.data.result;
-    } else {
-      console.log(placeDetails.data.error_message);
-    }
-  } catch (e) {
-    console.log(e);
+  if (res.status === 200) {
+    return res.data;
   }
+
+  console.log(res);
+
+  return null;
 };

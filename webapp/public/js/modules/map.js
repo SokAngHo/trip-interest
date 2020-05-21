@@ -33,6 +33,10 @@ export function initMap() {
   if (orig && dest && via) setTimeout(findPlaces, 1000);
 }
 
+/* Reference:
+wesbos, "wesbos/Learn-Node", GitHub, 2018. [Online].
+Available: https://github.com/wesbos/Learn-Node.
+*/
 // Google Map places auto completion on input
 export function autocomplete(textInput, placeIdInput) {
   if (!textInput) return;
@@ -49,6 +53,10 @@ export function autocomplete(textInput, placeIdInput) {
   });
 }
 
+/* Reference:
+geocodezip, "How to to Get Places (e.g Gas Stations) along Route Between Origin and Destination in Google Maps API", Stack Overflow, 2016. [Online].
+Available: https://stackoverflow.com/questions/17283826/how-to-to-get-places-e-g-gas-stations-along-route-between-origin-and-destinati.
+*/
 function drawRoute() {
   let waypointsReq = [];
 
@@ -83,7 +91,6 @@ function drawRoute() {
         const path = route.overview_path;
         const distance = 0.5; // radius around route is 500 m
         routeBoxes = routeBoxer.box(path, distance);
-        // drawBoxes(routeBoxes);
       } else {
         console.log(status);
       }
@@ -157,6 +164,10 @@ function displayRouteInfo(route) {
   routeInfo.appendChild(duration);
 }
 
+/* Reference:
+geocodezip, "How to to Get Places (e.g Gas Stations) along Route Between Origin and Destination in Google Maps API", Stack Overflow, 2016. [Online].
+Available: https://stackoverflow.com/questions/17283826/how-to-to-get-places-e-g-gas-stations-along-route-between-origin-and-destinati.
+*/
 function findPlaces() {
   if (!routeBoxes) return;
 
@@ -245,19 +256,4 @@ function findRoutes() {
 
   waypoint.value = '';
   document.getElementById('mapForm').submit();
-}
-
-// Utility function to draw route boxes for debugging
-function drawBoxes(boxes) {
-  var boxpolys = new Array(boxes.length);
-  for (var i = 0; i < boxes.length; i++) {
-    boxpolys[i] = new google.maps.Rectangle({
-      bounds: boxes[i],
-      fillOpacity: 0,
-      strokeOpacity: 1.0,
-      strokeColor: '#000000',
-      strokeWeight: 1,
-      map: map,
-    });
-  }
 }

@@ -1,6 +1,7 @@
 /**
- * This file is retreived from
- * https://github.com/googlemaps/v3-utility-library/blob/master/archive/routeboxer/src/RouteBoxer.js
+ * Reference:
+ * T. Mitchell, "googlemaps/v3-utility-library", GitHub, 2019. [Online].
+ * Available: https://github.com/googlemaps/v3-utility-library/blob/master/archive/routeboxer/src/RouteBoxer.js.
  *
  * @name RouteBoxer
  * @version 1.0

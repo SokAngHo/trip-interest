@@ -1,0 +1,8 @@
+References:
+  - Firebase, "Add the Firebase Admin SDK to your server", Firebase, 2020. [Online]. Available: https://firebase.google.com/docs/admin/setup.
+  - Firebase, "firebase/firebaseui-web", GitHub, 2020. [Online]. Available: https://github.com/firebase/firebaseui-web.
+  - FontAwesome, "Font Awesome", Fontawesome.com, 2020. [Online]. Available: https://fontawesome.com/start.
+  - geocodezip, "How to to Get Places (e.g Gas Stations) along Route Between Origin and Destination in Google Maps API", Stack Overflow, 2016. [Online]. Available: https://stackoverflow.com/questions/17283826/how-to-to-get-places-e-g-gas-stations-along-route-between-origin-and-destinati.
+  - Google, "Overview  |  Maps JavaScript API  |  Google Developers", Google Developers, 2020. [Online]. Available: https://developers.google.com/maps/documentation/javascript/tutorial.
+  - T. Mitchell, "googlemaps/v3-utility-library", GitHub, 2019. [Online]. Available: https://github.com/googlemaps/v3-utility-library/blob/master/archive/routeboxer/src/RouteBoxer.js.
+  - wesbos, "wesbos/Learn-Node", GitHub, 2018. [Online]. Available: https://github.com/wesbos/Learn-Node.

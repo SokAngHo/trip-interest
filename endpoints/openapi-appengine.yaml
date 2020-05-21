@@ -1,0 +1,71 @@
+# [START swagger]
+swagger: '2.0'
+info:
+  description: 'Trip-Interest API Endpoints'
+  title: 'Trip-Interest API Endpoints'
+  version: '1.0.0'
+host: 'trip-interest.appspot.com'
+# [END swagger]
+consumes:
+  - 'application/json'
+produces:
+  - 'application/json'
+schemes:
+  - 'https'
+paths:
+paths:
+  '/api/place':
+    post:
+      description: 'Returns information about a place.'
+      operationId: 'place'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: 'Place information.'
+      parameters:
+        - description: 'Place Id'
+          in: body
+          name: placeId
+          required: true
+          schema:
+            $ref: '#/definitions/placeId'
+  '/api/directions':
+    post:
+      description: 'Returns directions between places.'
+      operationId: 'direction'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: 'Directions between places.'
+      parameters:
+        - description: 'Direction Request'
+          in: body
+          name: directionReq
+          required: true
+          schema:
+            $ref: '#/definitions/directionReq'
+definitions:
+  placeId:
+    type: 'object'
+    properties:
+      apiKey:
+        type: 'string'
+      placeId:
+        type: 'string'
+  directionReq:
+    type: 'object'
+    properties:
+      apiKey:
+        type: 'string'
+      origin:
+        type: 'string'
+      destination:
+        type: 'string'
+      mode:
+        type: 'string'
+      waypoints:
+        type: 'array'
+
+
