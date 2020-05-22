@@ -26,17 +26,17 @@ block content
       .col
         form(action="/" method="GET" id="mapForm")
           .form-group
-            lablel(for="orig-text-input") From
+            lablel(for="orig-text-input") Start
             input.form-control(type="text" id="orig-input" value=origAddress)
             input(type="hidden" id="orig" name="orig" value=orig)
 
           .form-group
-            label(for="dest-text-input") To
+            label(for="dest-text-input") End
             input.form-control(type="text" id="dest-input" value=destAddress)
             input(type="hidden" id="dest" name="dest" value=dest)
 
           .form-group
-            label(for="via") Via
+            label(for="via") Stopover
             input.form-control(type="text" id="via" name="via" value=via)
             input(type="hidden" id="waypoint" name="waypoint" value=waypoint)
             input(type="hidden" id="waypointAddress" value=waypointAddress)
