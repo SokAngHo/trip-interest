@@ -12,7 +12,6 @@ const orig = document.getElementById('orig').value;
 const dest = document.getElementById('dest').value;
 const via = document.getElementById('via').value;
 let waypoint = document.getElementById('waypoint');
-const findRoutesBtn = document.getElementById('findRoutesBtn');
 
 export function initMap() {
   // Initilise map to Melbourne location
@@ -53,8 +52,10 @@ export function autocomplete(textInput, placeIdInput) {
 }
 
 /* Reference:
-geocodezip, "How to to Get Places (e.g Gas Stations) along Route Between Origin and Destination in Google Maps API", Stack Overflow, 2016. [Online].
+- geocodezip, "How to to Get Places (e.g Gas Stations) along Route Between Origin and Destination in Google Maps API", Stack Overflow, 2016. [Online].
 Available: https://stackoverflow.com/questions/17283826/how-to-to-get-places-e-g-gas-stations-along-route-between-origin-and-destinati.
+
+- Doug, "llama/roadli", GitHub, 2020. [Online]. Available: https://github.com/llama/roadli.
 */
 function drawRoute() {
   let waypointsReq = [];
@@ -88,7 +89,7 @@ function drawRoute() {
         }
 
         const path = route.overview_path;
-        const distance = 0.5; // radius around route is 500 m
+        const distance = 1.5; // radius around route is 1.5 km
         routeBoxes = routeBoxer.box(path, distance);
       } else {
         console.log(status);
@@ -164,8 +165,10 @@ function displayRouteInfo(route) {
 }
 
 /* Reference:
-geocodezip, "How to to Get Places (e.g Gas Stations) along Route Between Origin and Destination in Google Maps API", Stack Overflow, 2016. [Online].
+- geocodezip, "How to to Get Places (e.g Gas Stations) along Route Between Origin and Destination in Google Maps API", Stack Overflow, 2016. [Online].
 Available: https://stackoverflow.com/questions/17283826/how-to-to-get-places-e-g-gas-stations-along-route-between-origin-and-destinati.
+
+- Doug, "llama/roadli", GitHub, 2020. [Online]. Available: https://github.com/llama/roadli.
 */
 function findPlaces() {
   if (!routeBoxes) return;
