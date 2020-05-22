@@ -139,8 +139,7 @@ function initMap() {
   placesService = new google.maps.places.PlacesService(map);
   directionsRenderer.setMap(map);
   routeBoxer = new _RouteBoxer__WEBPACK_IMPORTED_MODULE_0__["RouteBoxer"]();
-  infoWindow = new google.maps.InfoWindow(); // findRoutesBtn.addEventListener('click', findRoutes);
-  // Draw routes on the map
+  infoWindow = new google.maps.InfoWindow(); // Draw routes on the map
 
   if (orig && dest) drawRoute();
   if (orig && dest && via) setTimeout(findPlaces, 1000);
@@ -294,8 +293,6 @@ function findPlaces() {
 function createPlaceMarker(place) {
   var image = {
     url: 'http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png',
-    // size: new google.maps.Size(71, 71),
-    // anchor: new google.maps.Point(17, 34),
     scaledSize: new google.maps.Size(15, 15)
   };
   var marker = new google.maps.Marker({

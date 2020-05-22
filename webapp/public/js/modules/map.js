@@ -26,7 +26,6 @@ export function initMap() {
   directionsRenderer.setMap(map);
   routeBoxer = new RouteBoxer();
   infoWindow = new google.maps.InfoWindow();
-  // findRoutesBtn.addEventListener('click', findRoutes);
 
   // Draw routes on the map
   if (orig && dest) drawRoute();
@@ -190,8 +189,6 @@ function findPlaces() {
 function createPlaceMarker(place) {
   const image = {
     url: 'http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png',
-    // size: new google.maps.Size(71, 71),
-    // anchor: new google.maps.Point(17, 34),
     scaledSize: new google.maps.Size(15, 15),
   };
 
